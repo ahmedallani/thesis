@@ -8,7 +8,6 @@ module.exports = {
   read: callbacks => {
     Appointment.find().exec(callbacks);
   },
-
   delete: (id, callback) => {
     Appointment.findByIdAndRemove({ _id: id }).exec(callback);
   }
