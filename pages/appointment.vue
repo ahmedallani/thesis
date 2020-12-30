@@ -69,7 +69,7 @@
     data: () => ({
       appointmentDate: '',
       place: '',
-     numberOfPeople: 0,
+     numberOfPeople:'',
       checkbox: false,
     }),
 
@@ -102,9 +102,17 @@
     },
 
     methods: {
-      submit () {
+    async submit () {
         this.$v.$touch()
-       
+
+        let user = {
+          appointmentDate: this.appointmentDate,
+          place: this.place,
+          numberOfPeople: this.numberOfPeople,
+        };
+
+        let rtn = await this.$axios.$post("/api/appointment", user);
+        console.log({user,rtn})
       },
 
     },
