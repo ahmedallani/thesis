@@ -51,6 +51,7 @@ router.route("/:id").put(function(req, res) {
 router.route("/:id").delete((req, res) => {
   console.log(req.params.id);
   blogControle.delete(req.params.id, (err, data) => {
+    
     if (err) {
       throw err;
     }

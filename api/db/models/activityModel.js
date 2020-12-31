@@ -6,7 +6,7 @@ const ActivitySchema = new Schema({
   image: String,
   description: String,
   food: Boolean,
-  transportation: Boolean,
+  transportation: Boolean
 });
 
 const Activity = mongoose.model("activity", ActivitySchema);

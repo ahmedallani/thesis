@@ -27,7 +27,6 @@
   </v-card>
 </template>
 
-
 <script>
 export default {
   data: () => ({
@@ -78,4 +77,3 @@ export default {
   })
 };
 </script>
-<style scoped></style>
