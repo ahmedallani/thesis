@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
@@ -81,6 +82,11 @@ var products = require("./routes/products.js");
 var blogs = require("./routes/blogs.js");
 app.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
+
+app.get("/images/:img", (req, res) => {
+  res.sendFile(path.join(__dirname, "uploads", req.params.img));
+});
+
 app.use("/appointment", appointment);
 
 var activity = require("./routes/activity.js");

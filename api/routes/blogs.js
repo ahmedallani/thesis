@@ -6,7 +6,7 @@ const { getUserByEmail } = require("../db/models/users.js");
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "assets");
+    cb(null, "./api/uploads");
   },
   filename: function(req, file, cb) {
     console.log(file);
