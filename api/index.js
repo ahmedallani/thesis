@@ -78,9 +78,8 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 var products = require("./routes/products.js");
-
-app.use("/products", products);
-
+var blogs = require("./routes/blogs.js");
+app.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
 app.use("/appointment", appointment);
 module.exports = {
