@@ -21,6 +21,10 @@
           <v-btn color="orange" text>
             Explore
           </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text>
+           delete
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
