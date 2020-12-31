@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
@@ -11,9 +12,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
-   { useMongoClient: true }
+  { useMongoClient: true }
 );
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   res.header(
@@ -24,9 +25,7 @@ app.use(function (req, res, next) {
 });
 mongoose.connection
   .once("open", () => console.log("Connected to the database!"))
-  .on("error", (err) => console.log("Error", err));
-
-
+  .on("error", err => console.log("Error", err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -83,6 +82,11 @@ var products = require("./routes/products.js");
 var blogs = require("./routes/blogs.js");
 app.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
+
+app.get("/images/:img", (req, res) => {
+  res.sendFile(path.join(__dirname, "uploads", req.params.img));
+});
+
 app.use("/appointment", appointment);
 module.exports = {
   path: "/api",
