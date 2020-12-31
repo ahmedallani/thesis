@@ -5,10 +5,28 @@ const session = require("express-session");
 const app = express();
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/shop", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connect(
+  "mongodb+srv://dhiadhafer:dhia123@cluster0.4vcxr.mongodb.net/esciper?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
+   { useMongoClient: true }
+);
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
+mongoose.connection
+  .once("open", () => console.log("Connected to the database!"))
+  .on("error", (err) => console.log("Error", err));
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -24,7 +42,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
 app.get("/user", (req, res) => {
@@ -60,9 +78,10 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 var products = require("./routes/products.js");
-
-app.use("/products", products);
-
+var blogs = require("./routes/blogs.js");
+app.use("/blogs", blogs);
+var appointment = require("./routes/appointment.js");
+app.use("/appointment", appointment);
 module.exports = {
   path: "/api",
   handler: app
