@@ -45,6 +45,8 @@ app.use(
     saveUninitialized: false
   })
 );
+app.use(passport.initialize()); 
+app.use(passport.session()); 
 app.get("/user", (req, res) => {
   console.log({ user: req.user });
   res.json({ user: req.user });
