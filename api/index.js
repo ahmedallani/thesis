@@ -44,8 +44,8 @@ app.use(
     saveUninitialized: false
   })
 );
-app.use(passport.initialize()); 
-app.use(passport.session()); 
+app.use(passport.initialize());
+app.use(passport.session());
 app.get("/user", (req, res) => {
   console.log({ user: req.user });
   res.json({ user: req.user });
@@ -88,6 +88,10 @@ app.get("/images/:img", (req, res) => {
 });
 
 app.use("/appointment", appointment);
+
+var activity = require("./routes/activity.js");
+app.use("/activity", activity);
+
 module.exports = {
   path: "/api",
   handler: app
