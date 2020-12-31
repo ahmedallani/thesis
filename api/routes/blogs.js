@@ -6,7 +6,7 @@ const { getUserByEmail } = require("../db/models/users.js");
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "assets");
+    cb(null, "./api/uploads");
   },
   filename: function(req, file, cb) {
     console.log(file);
@@ -15,13 +15,13 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage });
-router.post("/", upload.single("image"), function(req, res){
+router.post("/", upload.single("image"), function(req, res) {
   const obj = {
     title: req.body.title,
     image: req.file.originalname,
     body: req.body.body
   };
-  console.log("obj",obj)
+  console.log("obj", obj);
   blogControle.create(obj, (err, data) => {
     if (err) {
       throw err;
