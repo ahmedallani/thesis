@@ -11,9 +11,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
-   { useMongoClient: true }
+  { useMongoClient: true }
 );
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   res.header(
@@ -24,9 +24,7 @@ app.use(function (req, res, next) {
 });
 mongoose.connection
   .once("open", () => console.log("Connected to the database!"))
-  .on("error", (err) => console.log("Error", err));
-
-
+  .on("error", err => console.log("Error", err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -45,8 +43,8 @@ app.use(
     saveUninitialized: false
   })
 );
-app.use(passport.initialize()); 
-app.use(passport.session()); 
+app.use(passport.initialize());
+app.use(passport.session());
 app.get("/user", (req, res) => {
   console.log({ user: req.user });
   res.json({ user: req.user });
@@ -84,6 +82,10 @@ var blogs = require("./routes/blogs.js");
 app.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
 app.use("/appointment", appointment);
+
+var activity = require("./routes/activity.js");
+app.use("/activity", activity);
+
 module.exports = {
   path: "/api",
   handler: app
