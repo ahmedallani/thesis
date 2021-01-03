@@ -15,14 +15,10 @@
 
         <v-card-actions>
           <v-btn color="orange" text>
-            like
-          </v-btn>
-
-          <v-btn color="orange" text>
             Explore
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="red" text>
+          <v-btn color="red" text @click="deleteItem(activity)">
             delete
           </v-btn>
         </v-card-actions>
@@ -38,10 +34,25 @@ export default {
       activities: []
     };
   },
-  methods: {},
-  async beforeMount() {
-    let { data } = await axios.get("/api/activity");
-    this.activities = data;
+  created() {
+    this.initialize();
+  },
+
+  methods: {
+    async initialize() {
+      const activities = await this.$axios.$get("/api/activity");
+      console.log(activities);
+      this.activities = activities;
+    },
+    async deleteItem(activity) {
+      await this.$axios.$delete(`/api/activity/${activity._id}`);
+      this.initialize();
+    }
   }
+
+  // async beforeMount() {
+  //   let { data } = await axios.get("/api/activity");
+  //   this.activities = data;
+  // }
 };
 </script>

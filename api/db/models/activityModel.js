@@ -1,5 +1,5 @@
-// const { strict } = require("assert");
-var mongoose = require("mongoose");
+const { strict } = require("assert");
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const ActivitySchema = new Schema({

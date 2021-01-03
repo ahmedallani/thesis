@@ -46,7 +46,7 @@ router.route("/:id").put(function(req, res) {
 });
 router.route("/:id").delete((req, res) => {
   console.log(req.params.id);
-  activityControl.delete(req.params._id, (err, data) => {
+  activityControl.delete(req.params.id, (err, data) => {
     if (err) {
       throw err;
     }
