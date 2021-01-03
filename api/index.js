@@ -3,6 +3,7 @@ const path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
+
 const app = express();
 
 const mongoose = require("mongoose");
@@ -88,10 +89,14 @@ app.get("/images/:img", (req, res) => {
   res.sendFile(path.join(__dirname, "uploads", req.params.img));
 });
 
-
+app.use("/products", products)
 
 var activity = require("./routes/activity.js");
 app.use("/activity", activity);
+
+
+// View engine setup
+
 
 module.exports = {
   path: "/api",
