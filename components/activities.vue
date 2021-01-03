@@ -12,14 +12,21 @@
         <v-card-text class="text--primary">
           <div>{{ activity.description }}</div>
         </v-card-text>
+        <v-card-text class="text--primary">
+          <div>Price : {{ activity.price }}</div>
+        </v-card-text>
 
         <v-card-actions>
           <v-btn color="orange" text>
             Explore
           </v-btn>
           <v-spacer></v-spacer>
+          <v-btn color="green" text @click="editItem(activity)">
+            Edit
+          </v-btn>
+          <v-spacer></v-spacer>
           <v-btn color="red" text @click="deleteItem(activity)">
-            delete
+            Delete
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -31,7 +38,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      activities: []
+      activities: [],
+      editedIndex: -1,
+    editedItem: {
+      image: "",
+      description: "",
+      description: 0,
+    }
     };
   },
   created() {
@@ -46,6 +59,13 @@ export default {
     },
     async deleteItem(activity) {
       await this.$axios.$delete(`/api/activity/${activity._id}`);
+      this.initialize();
+    },
+    async editItem(activity) {
+      await this.$axios.$put(`/api/activity/${activity._id}`);
+       this.editedIndex = this.activities.indexOf(activity);
+      this.editedItem = Object.assign({}, activity);
+
       this.initialize();
     }
   }

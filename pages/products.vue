@@ -20,7 +20,6 @@
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-
             <v-card-text>
               <v-container>
                 <v-row>
@@ -45,7 +44,6 @@
                 </v-row>
               </v-container>
             </v-card-text>
-
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
@@ -72,8 +70,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    
-    <template @v-slot:item.actions="{item}">
+    <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
@@ -91,65 +88,57 @@ export default {
       { text: "Name", value: "name" },
       { text: "Price", value: "price" },
       { text: "Description", value: "description" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Actions", value: "actions", sortable: false }
     ],
     products: [],
     editedIndex: -1,
     editedItem: {
       name: "",
       price: 0,
-      description: "",
+      description: ""
     },
     defaultItem: {
       name: "",
       price: 0,
-      description: "",
-    },
+      description: ""
+    }
   }),
-
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
+    }
   },
-
   watch: {
     dialog(val) {
       val || this.close();
     },
     dialogDelete(val) {
       val || this.closeDelete();
-    },
+    }
   },
-
   created() {
     this.initialize();
   },
-
   methods: {
     async initialize() {
       const products = await this.$axios.$get("/api/products");
       this.products = products;
     },
-
     editItem(item) {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-
     deleteItem(item) {
       this.editedIndex = this.products.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
-
     async deleteItemConfirm() {
       await this.$axios.$delete(`/api/products/${this.editedItem._id}`);
       await this.initialize();
       this.closeDelete();
     },
-
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -157,7 +146,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -165,18 +153,20 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.products[this.editedIndex], this.editedItem);
-        await this.$axios.$put(`/api/products/${this.editedItem._id}`, this.editedItem);
+        await this.$axios.$put(
+          `/api/products/${this.editedItem._id}`,
+          this.editedItem
+        );
         await this.initialize();
       } else {
         await this.$axios.$post("/api/products", this.editedItem);
         await this.initialize();
       }
       this.close();
-    },
-  },
+    }
+  }
 };
 </script>
