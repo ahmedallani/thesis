@@ -11,6 +11,6 @@ module.exports = {
     Activity.findOneAndUpdate({ _id: id }, obj, callback);
   },
   delete: (id, callback) => {
-    Activity.findByIdAndRemove({ _id: id }).exec(callback);
+    Activity.findOneAndDelete({ _id: id }).exec(callback);
   }
 };
