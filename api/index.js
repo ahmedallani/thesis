@@ -4,7 +4,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
 const app = express();
-const routers= express.Router();;
+const routers = express.Router();
 const mongoose = require("mongoose");
 
 mongoose.connect(
@@ -40,7 +40,7 @@ const User = require("./db/models/users.js");
 passportLocal(passport, User.getUserByEmail, User.getUserById);
 routers.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "process.env.SESSION_SECRET",
     resave: false,
     saveUninitialized: false
   })
@@ -90,16 +90,11 @@ routers.get("/images/:img", (req, res) => {
   res.sendFile(path.join(__dirname, "uploads", req.params.img));
 });
 
-
-routers.use("/products", products)
-
 var activity = require("./routes/activity.js");
-const product = require("./routes/products.js");
-routers.use("/activity", activity);
 
+routers.use("/activity", activity);
 
 // View engine setup
 
-
-app.use("/api",routers)
-module.exports = app
+app.use("/api", routers);
+module.exports = app;
