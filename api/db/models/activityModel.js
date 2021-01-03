@@ -1,12 +1,10 @@
+// const { strict } = require("assert");
 var mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const ActivitySchema = new Schema({
-  title: String,
   image: String,
-  description: String,
-  food: Boolean,
-  transportation: Boolean
+  description: String
 });
 
 const Activity = mongoose.model("activity", ActivitySchema);
