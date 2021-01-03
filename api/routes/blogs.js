@@ -16,6 +16,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage });
 router.post("/", upload.single("image"), function(req, res) {
+  console.log("user", req.user);
   const obj = {
     title: req.body.title,
     image: req.file.originalname,
@@ -31,6 +32,7 @@ router.post("/", upload.single("image"), function(req, res) {
 });
 
 router.route("/").get(function(req, res) {
+  console.log("user", req.user, req.isAuthenticated());
   blogControle.read((err, data) => {
     if (err) {
       throw err;
