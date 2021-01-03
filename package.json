@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "debug": "ndb nuxt",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -13,13 +14,17 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongoose": "^5.11.9",
+    "multer": "^1.4.2",
     "nuxt": "^2.14.6",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",

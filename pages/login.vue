@@ -13,8 +13,9 @@
         :counter="50"
         :rules="passwordRules"
         label="Password"
+        type="password"
         required
-        
+
       ></v-text-field>
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
@@ -40,7 +41,6 @@ export default {
       v => (v && v.length > 6) || "password must be more than 6 characters"
     ]
   }),
-
   methods: {
     async validate() {
       if (this.$refs.form.validate()) {
@@ -49,7 +49,10 @@ export default {
           password: this.password
         };
         let rtn = await this.$axios.$post("/api/login", user);
+
         console.log({ user, rtn });
+
+  
       }
     },
     reset() {
@@ -57,4 +60,7 @@ export default {
     }
   }
 };
+
 </script>
+
+
