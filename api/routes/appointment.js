@@ -26,16 +26,16 @@ router.route("/").post(function(req, res) {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "messaoudighofrane2@gmail.com",
-        pass: "291220fafou"
+        user: "email",
+        pass: "password"
       }
     })
   );
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: "messaoudighofrane2@gmail.com", // sender address
-    to: "ahmedbouhrira365@gmail.com", // list of receivers
+    from: "mail", // sender addresss
+    to: "mail", // list of receivers
     subject: "Node Contact Request", // Subject line
     text: "hiiiiiiii", // plain text body
     html: output // html body
