@@ -94,8 +94,8 @@ export default {
         },
         {
           icon: "mdi mdi-human",
-          title: "Activities",
-          to: "/activities"
+          title: "Add New Activity",
+          to: "/addActivity"
         }
       ],
       miniVariant: false,

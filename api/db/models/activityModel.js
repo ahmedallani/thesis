@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 
 const ActivitySchema = new Schema({
   image: String,
-  description: String
+  description: String,
+  price: Number
 });
 
 const Activity = mongoose.model("activity", ActivitySchema);

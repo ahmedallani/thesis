@@ -16,7 +16,8 @@ var upload = multer({ storage });
 router.post("/", upload.single("image"), function(req, res) {
   const obj = {
     image: req.file.originalname,
-    description: req.body.description
+    description: req.body.description,
+    price: req.body.price,
   };
   console.log("obj", obj);
   activityControl.create(obj, (err, data) => {
