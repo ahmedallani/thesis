@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   provider: String,
-  providerId: String
+  googleId: String
 });
 UserSchema.methods.validPassword = async function(password) {
   try {

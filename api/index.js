@@ -93,6 +93,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
 });
 app.delete("/logout", (req, res) => {
   req.logOut();
+  
   res.sendStatus(204);
   // res.redirect("/login");
 });

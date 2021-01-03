@@ -1,4 +1,3 @@
-
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const { User } = require("./db/models/users");
 
@@ -22,8 +21,8 @@ function initialize(passport) {
             //if not, create a new user
             new User({
               googleId: profile.id,
-              provider:"google",
-              username:profile.displayName
+              provider: "google",
+              username: profile.displayName
             })
               .save()
               .then(newUser => {
