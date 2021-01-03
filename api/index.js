@@ -65,14 +65,14 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
 });
 
 app.get(
-  "api/auth/google",
+  "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"]
   })
 );
 
 app.get(
-  "/api/auth/google/redirect",
+  "/auth/google/redirect",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
     res.redirect("/");

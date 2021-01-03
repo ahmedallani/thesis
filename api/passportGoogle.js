@@ -9,7 +9,7 @@ function initialize(passport) {
         clientID:
           "620902958049-iv3dlhu14iengn0baj4prumpfkie3rk5.apps.googleusercontent.com",
         clientSecret: "7B_nsOQLwb0xnK4LBaEu5X-1",
-        callbackURL: "api/auth/google/redirect"
+        callbackURL: "/api/auth/google/redirect"
       },
       (accessToken, refreshToken, profile, done) => {
         // passport callback function
@@ -21,7 +21,9 @@ function initialize(passport) {
           } else {
             //if not, create a new user
             new User({
-              googleId: profile.id
+              googleId: profile.id,
+              provider:"google",
+              username:profile.displayName
             })
               .save()
               .then(newUser => {
