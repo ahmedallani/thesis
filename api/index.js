@@ -4,14 +4,19 @@ var bodyParser = require("body-parser");
 const session = require("express-session");
 const app = express();
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/shop", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
 app.use(bodyParser.json());
+const mongoose = require("mongoose");
+mongoose.connect(
+  "mongodb+srv://dhiadhafer:dhia123@cluster0.4vcxr.mongodb.net/esciper?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,9 +29,13 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/user", (req, res) => {
   console.log({ user: req.user });
   res.json({ user: req.user });
@@ -34,6 +43,7 @@ app.get("/user", (req, res) => {
 app.post("/login", passport.authenticate("local"), function(req, res) {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
+  console.log("req.user", { user: req.user });
   res.json({ user: req.user });
 });
 app.post("/register", checkNotAuthenticated, async (req, res) => {
