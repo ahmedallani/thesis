@@ -4,7 +4,6 @@ const UserSchema = new mongoose.Schema({
   username: String,
   email: String,
   password: String,
-  type:String,
   provider: String,
   providerId: String
 });
@@ -34,7 +33,7 @@ const save = async ({ username, email, password }) => {
         username,
         email,
         password: hashedPassword,
-        provider: "local",
+        provider: "local"
       });
       const newUser = await user.save();
       delete newUser.password;
@@ -49,8 +48,8 @@ const login = async ({ email, password }) => {
     user = await User.findOne({
       $or: [
         { email: email, provider: "local" },
-        { username: email, provider: "local" },
-      ],
+        { username: email, provider: "local" }
+      ]
     }).exec();
     if (!user) {
       return { err: "Username or Email not exist." };
@@ -65,9 +64,14 @@ const login = async ({ email, password }) => {
     return { errNew: err };
   }
 };
-const getUserById = (_id) => User.findById(_id);
-const getUserByEmail = (email) =>
-  User.findOne({ $or: [{ email: email,provider: "local" }, { username: email, provider: "local" }] }).exec();
+const getUserById = _id => User.findById(_id);
+const getUserByEmail = email =>
+  User.findOne({
+    $or: [
+      { email: email, provider: "local" },
+      { username: email, provider: "local" }
+    ]
+  }).exec();
 const findOrCreate = async ({ provider, providerId, username }) => {
   try {
     let user = await User.findOne({ provider, providerId });
@@ -85,6 +89,5 @@ module.exports = {
   login,
   getUserById,
   getUserByEmail,
-  findOrCreate,
+  findOrCreate
 };
-
