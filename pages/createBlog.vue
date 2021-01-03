@@ -5,7 +5,11 @@
       <v-text-field v-model="title" label="Title"></v-text-field>
 
       <v-text-field v-model="body" label="Description" required></v-text-field>
-      <input type="file" @change="onFileSelected" multiple label="image"/>
+      <!-- <input type="file" @change="onFileSelected" multiple label="image" /> -->
+      <v-file-input
+        truncate-length="15"
+        @change="onFileSelected"
+      ></v-file-input>
       <v-btn color="success" class="mr-4" @click="validate">
         Register
       </v-btn>
@@ -15,35 +19,38 @@
   </v-card>
 </template>
 
- <script>
- import axios from 'axios'
+<script>
+import axios from "axios";
 export default {
   data: () => ({
-    selectedFile:null,
+    selectedFile: null,
     valid: true,
     title: "",
     body: ""
-  
   }),
 
   methods: {
-    onFileSelected(event){
-      this.selectedFile=event.target.files[0]
+    onFileSelected(file) {
+      this.selectedFile = file;
     },
     async validate() {
-
       const fb = new FormData();
-      fb.append('image', this.selectedFile, this.selectedFile.name);
-      fb.append('title',this.title);
-      fb.append('body',this.body);
-     axios.post ("/api/blogs",fb,{
-       onUploadProgress : uploadEvent => {
-         console.log('upload Progress' + Math.round(uploadEvent.loaded / uploadEvent.total*100)+'%')
-       } 
-     })
-     .then(res => {
-       console.log(res)
-     })
+      fb.append("image", this.selectedFile, this.selectedFile.name);
+      fb.append("title", this.title);
+      fb.append("body", this.body);
+      axios
+        .post("/api/blogs", fb, {
+          onUploadProgress: uploadEvent => {
+            console.log(
+              "upload Progress" +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
+            );
+          }
+        })
+        .then(res => {
+          console.log(res);
+        });
     },
     reset() {
       this.$refs.form.reset();
