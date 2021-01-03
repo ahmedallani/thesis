@@ -22,8 +22,8 @@
             Explore
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="red" text>
-           delete
+          <v-btn color="red" text @click="deleteItem(blog)">
+            delete
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -38,10 +38,19 @@ export default {
       blogs: []
     };
   },
-  methods: {},
-  async beforeMount() {
-    let { data } = await axios.get("/api/blogs");
-    this.blogs = data;
+  created() {
+    this.initialize();
+  },
+  methods: {
+    async initialize() {
+      const blogs = await this.$axios.$get("/api/blogs");
+      console.log(blogs)
+      this.blogs = blogs;
+    },
+    async deleteItem(blog) {
+      await this.$axios.$delete(`/api/blogs/${blog._id}`);
+      this.initialize();
+    }
   }
 };
 </script>
