@@ -38,7 +38,13 @@ import axios from "axios";
 export default {
   data() {
     return {
-      activities: []
+      activities: [],
+      editedIndex: -1,
+    editedItem: {
+      image: "",
+      description: "",
+      description: 0,
+    }
     };
   },
   created() {
@@ -57,7 +63,9 @@ export default {
     },
     async editItem(activity) {
       await this.$axios.$put(`/api/activity/${activity._id}`);
-      
+       this.editedIndex = this.activities.indexOf(activity);
+      this.editedItem = Object.assign({}, activity);
+
       this.initialize();
     }
   }
