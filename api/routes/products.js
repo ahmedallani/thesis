@@ -4,6 +4,7 @@ var productControle = require("../db/controllers/productControle.js");
 var router = express.Router();
 
 router.route("/").post(function (req, res) {
+  debugger;
   productControle.create(req.body, (err, data) => {
     if (err) {
       throw err;

@@ -7,22 +7,17 @@
         <h2>find yourself <em>outside</em></h2>
       </v-col>
     </v-row>
-    <activities />
+
+    <displayBlog />
+    <createBlog />
   </v-container>
 </template>
 
 <script>
-import activities from "@/components/activities.vue";
-// import addActivity from "@/components/addActivity.vue";
+import displayBlog from "@/components/displayBlog.vue";
+import createBlog from "@/components/createBlog.vue";
 export default {
-  components: { activities}
+  components: { displayBlog, createBlog }
 };
 </script>
-<style scoped>
-.container {
-  text-align: center;
-  background-color: rgb(58, 155, 106);
-  width: 100%;
-  margin: 0;
-}
-</style>
+<style scoped></style>
