@@ -15,7 +15,6 @@
         label="Password"
         type="password"
         required
-
       ></v-text-field>
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
@@ -23,6 +22,23 @@
       </v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
+      <div class="mt-4 text-center login-with-social"> 
+        <v-btn
+          href="/api/auth/google"
+          type="button"
+          class="btn btn-outline-danger btn-block"
+        >
+          <i class="mdi mdi-google-plus"></i> Login With Google
+        </v-btn>
+        <v-btn
+          href="/api/auth/facebook"
+          type="button"
+          class="btn btn-outline-primary btn-block"
+        >
+          <i class="mdi mdi-facebook"></i> Login With Facebook
+        </v-btn>
+       
+      </div>
     </v-form>
   </v-card>
 </template>
@@ -51,8 +67,6 @@ export default {
         let rtn = await this.$axios.$post("/api/login", user);
 
         console.log({ user, rtn });
-
-  
       }
     },
     reset() {
@@ -60,7 +74,4 @@ export default {
     }
   }
 };
-
 </script>
-
-

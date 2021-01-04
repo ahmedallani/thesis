@@ -5,6 +5,11 @@ var bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+const passport = require("passport");
+const passportLocal = require("./passportLocal");
+const passportGoogle = require("./passportGoogle");
+const passportFacebook = require("./passportFacebook");
+const User = require("./db/models/users.js");
 
 const app = express();
 mongoose.connect(
@@ -36,12 +41,11 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-const passport = require("passport");
-const passportLocal = require("./passportLocal");
-const passportGoogle = require("./passportGoogle");
-const User = require("./db/models/users.js");
+
 passportLocal(passport, User.getUserByEmail, User.getUserById);
 passportGoogle(passport);
+passportFacebook(passport);
+
 app.use(
   session({
     secret: "process.env.SESSION_SECRET",
@@ -64,6 +68,7 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
   res.json({ user: req.user });
 });
 
+//google
 app.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -74,6 +79,21 @@ app.get(
 app.get(
   "/auth/google/redirect",
   passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    res.redirect("/");
+  }
+);
+//facebook
+app.get(
+  "/auth/facebook",
+  passport.authenticate("facebook", {
+    scope: ["profile", "email"]
+  })
+);
+
+app.get(
+  "/auth/facebook/redirect",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
   function(req, res) {
     res.redirect("/");
   }
@@ -93,7 +113,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
 });
 app.delete("/logout", (req, res) => {
   req.logOut();
-  
+
   res.sendStatus(204);
   // res.redirect("/login");
 });
