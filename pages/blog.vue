@@ -161,7 +161,7 @@ export default {
     },
     editItem(blog) {
       console.log(blog);
-      this.editedIndex = this.activities.indexOf(blog);
+      this.editedIndex = this.blogs.indexOf(blog);
       this.editedItem = Object.assign({}, blog);
       this.dialog = true;
     },
