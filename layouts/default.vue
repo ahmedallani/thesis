@@ -74,7 +74,6 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
-
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -112,8 +111,8 @@ export default {
           },
           {
             icon: "mdi mdi-human",
-            title: "Activities",
-            to: "/activities"
+            title: "Add New Activity",
+            to: "/addActivity"
           }
         ];
       } else {
@@ -136,8 +135,8 @@ export default {
           },
           {
             icon: "mdi mdi-human",
-            title: "Activities",
-            to: "/activities"
+            title: "Add New Activity",
+            to: "/addActivity"
           }
         ];
       }
