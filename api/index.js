@@ -142,7 +142,6 @@ routers.get("/images/:img", (req, res) => {
 });
 
 var activity = require("./routes/activity.js");
-
 routers.use("/activity", activity);
 
 // View engine setup

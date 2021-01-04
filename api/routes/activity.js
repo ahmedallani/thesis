@@ -5,9 +5,11 @@ var multer = require("multer");
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
+    debugger
     cb(null, "./api/uploads");
   },
   filename: function(req, file, cb) {
+    debugger
     console.log(file);
     cb(null, file.originalname);
   }

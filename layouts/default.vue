@@ -74,6 +74,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+
       miniVariant: false,
       right: true,
       rightDrawer: false,
