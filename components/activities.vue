@@ -150,7 +150,6 @@ export default {
           })
           .then(() => this.close());
       }
-      
     },
 
     close() {
