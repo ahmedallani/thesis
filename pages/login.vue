@@ -22,7 +22,7 @@
       </v-btn>
 
       <v-btn color="error" class="mr-4" @click="reset"> Reset Form </v-btn>
-      <div class="mt-4 text-center login-with-social"> 
+      <div class="mt-4 text-center login-with-social">
         <v-btn
           href="/api/auth/google"
           type="button"
@@ -37,12 +37,13 @@
         >
           <i class="mdi mdi-facebook"></i> Login With Facebook
         </v-btn>
-       
       </div>
     </v-form>
   </v-card>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data: () => ({
     valid: true,
@@ -58,15 +59,22 @@ export default {
     ]
   }),
   methods: {
+    ...mapActions(["changeUser"]),
     async validate() {
       if (this.$refs.form.validate()) {
-        let user = {
+        let userObj = {
           email: this.email,
           password: this.password
         };
-        let rtn = await this.$axios.$post("/api/login", user);
+        let rtn = await this.$axios.$post("/api/login", userObj);
 
         console.log({ user, rtn });
+        const user = await this.$axios.$get("/api/user");
+        if (user.username) {
+          this.changeUser(user);
+        } else {
+          this.changeUser({ username: false });
+        }
       }
     },
     reset() {

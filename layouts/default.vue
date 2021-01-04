@@ -23,6 +23,8 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      
+      
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -42,6 +44,7 @@
       </v-btn>
     </v-app-bar>
     <v-main>
+      {{ user }}
       <v-container>
         <nuxt />
       </v-container>
@@ -65,44 +68,92 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Home",
-          to: "/"
-        },
-        {
-          icon: "mdi mdi-account-circle",
-          title: "Login",
-          to: "/login"
-        },
-        {
-          icon: "mdi mdi-account-check",
-          title: "Signup",
-          to: "/register"
-        },
-        {
-          icon: "mdi mdi-clipboard-text",
-          title: "Blog",
-          to: "/blog"
-        },
-        {
-          icon: "mdi mdi-human",
-          title: "Activities",
-          to: "/activities"
-        }
-      ],
+
       miniVariant: false,
       right: true,
       rightDrawer: false,
       title: "THE ESCAPER"
     };
+  },
+  created() {
+    this.initialize();
+  },
+  computed: {
+    ...mapState(["user"]),
+    items() {
+      console.log({ user: this.user });
+      if (this.user.username === false) {
+        return [
+          {
+            icon: "mdi-apps",
+            title: "Home",
+            to: "/"
+          },
+          {
+            icon: "mdi mdi-account-circle",
+            title: "Login",
+            to: "/login"
+          },
+          {
+            icon: "mdi mdi-account-check",
+            title: "Signup",
+            to: "/register"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Blog",
+            to: "/blog"
+          },
+          {
+            icon: "mdi mdi-human",
+            title: "Activities",
+            to: "/activities"
+          }
+        ];
+      } else {
+        return [
+          {
+            icon: "mdi-apps",
+            title: "Home",
+            to: "/"
+          },
+          {
+            icon: "mdi mdi-account-circle",
+            title: "Logout",
+            to: "/logout"
+          },
+
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Blog",
+            to: "/blog"
+          },
+          {
+            icon: "mdi mdi-human",
+            title: "Activities",
+            to: "/activities"
+          }
+        ];
+      }
+    }
+  },
+  methods: {
+    ...mapActions(["changeUser"]),
+    async initialize() {
+      const user = await this.$axios.$get("/api/user");
+      if (user.username) {
+        this.changeUser(user);
+      } else {
+        this.changeUser({ username: false });
+      }
+    }
   }
 };
 </script>
