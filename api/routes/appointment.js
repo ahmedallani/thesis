@@ -10,6 +10,12 @@ var router = express.Router();
 // app.set('view engine', 'handlebars');
 
 router.route("/").post(function(req, res) {
+  appointmentControle.create(req.body, (err, data) => {
+    if (err) {
+      throw err;
+    }
+    res.send(data);
+  });
   const output = `
     <p>You have a new reservation</p>
     <h3>Contact Details</h3>
@@ -48,14 +54,7 @@ router.route("/").post(function(req, res) {
  
 });
 
-router.route("/").post(function(req, res) {
-  appointmentControle.create(req.body, (err, data) => {
-    if (err) {
-      throw err;
-    }
-    res.send(data);
-  });
-});
+
 
 router.route("/").get(function(req, res) {
   appointmentControle.read((err, data) => {
