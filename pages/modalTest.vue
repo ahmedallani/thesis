@@ -55,7 +55,7 @@
               <div>{{ activity.description }}</div>
               <div>{{ activity.price }}</div>
             </v-card-text>
-             <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
             <v-card-actions>
               <v-btn color="warning" text @click="editItem(activity)">
                 edit
@@ -75,14 +75,11 @@
 import axios from "axios";
 export default {
   data: () => ({
-    dialog: true,
+    dialog: false,
     dialogDelete: false,
     activities: [],
     selectedFile: null,
     valid: true,
-    image: "",
-    description: "",
-    price: "",
     editedIndex: -1,
     editedItem: {
       image: "",
@@ -127,36 +124,36 @@ export default {
 
       fb.append("image", this.selectedFile, this.selectedFile.name);
 
-      fb.append("description", this.description);
-      fb.append("price", this.price);
+      fb.append("description", this.editedItem.description);
+      fb.append("price", this.editedItem.price);
 
-      if (this.editedIndex > -1) {
-        Object.assign(this.activities[this.editedIndex], this.editedItem);
-        await this.$axios.$put(
-          `/api/activity/${this.editedItem._id}`,
-          this.editedItem
-        );
-        await this.initialize();
-      } else {
-        await this.$axios.$post("/api/activity", this.editedItem);
-        await this.initialize();
-      }
-      this.close();
+      // if (this.editedIndex > -1) {
+      //   Object.assign(this.activities[this.editedIndex], this.editedItem);
+      //   await this.$axios.$put(
+      //     `/api/activity/${this.editedItem._id}`,
+      //     this.editedItem
+      //   );
+      //   await this.initialize();
+      // } else {
+      //   await this.$axios.$post("/api/activity", this.editedItem);
+      //   await this.initialize();
+      // }
+      // this.close();
 
-      // axios
-      //   .post("/api/activity", fb, {
-      //     onUploadProgress: uploadEvent => {
-      //       console.log(
-      //         "upload Progress" +
-      //           Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-      //           "%"
-      //       );
-      //     }
-      //   })
-      //   .then(res => {
-      //     this.initialize();
-      //   })
-      //   .then(() => this.close());
+      axios
+        .post("/api/activity", fb, {
+          onUploadProgress: uploadEvent => {
+            console.log(
+              "upload Progress" +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
+            );
+          }
+        })
+        .then(res => {
+          this.initialize();
+        })
+        .then(() => this.close());
     },
 
     close() {
@@ -174,12 +171,12 @@ export default {
     },
     async deleteItem(activity) {
       console.log(activity);
-      // await this.$axios.$delete(`/api/activity/${activity._id}`);
-      // this.initialize();
-      // console.log(activity);
-      // this.editedIndex = this.activities.indexOf(activity);
-      // this.editedItem = Object.assign({}, activity);
-      // this.dialogDelete = true;
+      await this.$axios.$delete(`/api/activity/${activity._id}`);
+      this.initialize();
+      console.log(activity);
+      this.editedIndex = this.activities.indexOf(activity);
+      this.editedItem = Object.assign({}, activity);
+      this.dialogDelete = true;
     }
   }
 };
