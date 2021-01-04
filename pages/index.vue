@@ -7,14 +7,16 @@
         <h2>find yourself <em>outside</em></h2>
       </v-col>
     </v-row>
+
+    <activities />
   </v-container>
 </template>
 
-
-
 <script>
+import activities from "@/components/activities.vue";
+// import addActivity from "@/components/addActivity.vue";
 export default {
-  
+  components: { activities }
 };
 </script>
 <style scoped>

@@ -3,15 +3,16 @@ const path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
-const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const passportLocal = require("./passportLocal");
 const passportGoogle = require("./passportGoogle");
 const passportFacebook = require("./passportFacebook");
 const User = require("./db/models/users.js");
-
 const app = express();
+const routers = express.Router();
+const mongoose = require("mongoose");
+
 mongoose.connect(
   "mongodb+srv://dhiadhafer:dhia123@cluster0.4vcxr.mongodb.net/esciper?retryWrites=true&w=majority",
   {
@@ -20,7 +21,7 @@ mongoose.connect(
   },
   { useMongoClient: true }
 );
-app.use(function(req, res, next) {
+routers.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   res.header(
@@ -33,20 +34,17 @@ mongoose.connection
   .once("open", () => console.log("Connected to the database!"))
   .on("error", err => console.log("Error", err));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+routers.use(bodyParser.urlencoded({ extended: false }));
+routers.use(bodyParser.json());
 
-// parse application/json
-app.use(bodyParser.json());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+routers.use(express.json());
+routers.use(express.urlencoded({ extended: false }));
+routers.use(cookieParser());
 
 passportLocal(passport, User.getUserByEmail, User.getUserById);
 passportGoogle(passport);
 passportFacebook(passport);
-
-app.use(
+routers.use(
   session({
     secret: "process.env.SESSION_SECRET",
     resave: false,
@@ -54,21 +52,20 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
 
-app.get("/user", (req, res) => {
-  
+
+routers.use(passport.initialize());
+routers.use(passport.session());
+routers.get("/user", (req, res) => {
   if (req.isAuthenticated()) {
     console.log({ username: req.user.username, type: req.user.type })
     return res.send({ username: req.user.username, type: req.user.type });
   } else {
     return res.send({ username: false });
   }
-  console.log({ user: req.user });
-  res.json({ user: req.user });
 });
-app.post("/login", passport.authenticate("local"), function(req, res) {
+
+routers.post("/login", passport.authenticate("local"), function(req, res) {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
   console.log("req.user", { user: req.user });
@@ -76,14 +73,14 @@ app.post("/login", passport.authenticate("local"), function(req, res) {
 });
 
 //google
-app.get(
+routers.get(
   "/auth/google",
   passport.authenticate("google", {
     scope: ["profile", "email"]
   })
 );
 
-app.get(
+routers.get(
   "/auth/google/redirect",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function(req, res) {
@@ -91,14 +88,14 @@ app.get(
   }
 );
 //facebook
-app.get(
+routers.get(
   "/auth/facebook",
   passport.authenticate("facebook", {
     scope: ["profile", "email"]
   })
 );
 
-app.get(
+routers.get(
   "/auth/facebook/redirect",
   passport.authenticate("facebook", { failureRedirect: "/login" }),
   function(req, res) {
@@ -106,7 +103,7 @@ app.get(
   }
 );
 
-app.post("/register", checkNotAuthenticated, async (req, res) => {
+routers.post("/register", checkNotAuthenticated, async (req, res) => {
   let { username, email, password } = req.body;
   try {
     user = await User.save({ username, email, password });
@@ -118,7 +115,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
     res.redirect("/register");
   }
 });
-app.delete("/logout", (req, res) => {
+routers.delete("/logout", (req, res) => {
   req.logOut();
 
   res.sendStatus(204);
@@ -132,20 +129,20 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 var products = require("./routes/products.js");
+routers.use("/products", products);
 var blogs = require("./routes/blogs.js");
-app.use("/blogs", blogs);
+routers.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
+routers.use("/appointment", appointment);
 
-app.get("/images/:img", (req, res) => {
+routers.get("/images/:img", (req, res) => {
   res.sendFile(path.join(__dirname, "uploads", req.params.img));
 });
 
-app.use("/appointment", appointment);
-
 var activity = require("./routes/activity.js");
-app.use("/activity", activity);
+routers.use("/activity", activity);
 
-module.exports = {
-  path: "/api",
-  handler: app
-};
+// View engine setup
+
+app.use("/api", routers);
+module.exports = app;
