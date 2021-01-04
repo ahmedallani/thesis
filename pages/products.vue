@@ -72,7 +72,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    
+
     <template @v-slot:item.actions="{item}">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
       <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
@@ -91,26 +91,26 @@ export default {
       { text: "Name", value: "name" },
       { text: "Price", value: "price" },
       { text: "Description", value: "description" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Actions", value: "actions", sortable: false }
     ],
     products: [],
     editedIndex: -1,
     editedItem: {
       name: "",
       price: 0,
-      description: "",
+      description: ""
     },
     defaultItem: {
       name: "",
       price: 0,
-      description: "",
-    },
+      description: ""
+    }
   }),
 
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
+    }
   },
 
   watch: {
@@ -119,7 +119,7 @@ export default {
     },
     dialogDelete(val) {
       val || this.closeDelete();
-    },
+    }
   },
 
   created() {
@@ -169,14 +169,17 @@ export default {
     async save() {
       if (this.editedIndex > -1) {
         Object.assign(this.products[this.editedIndex], this.editedItem);
-        await this.$axios.$put(`/api/products/${this.editedItem._id}`, this.editedItem);
+        await this.$axios.$put(
+          `/api/products/${this.editedItem._id}`,
+          this.editedItem
+        );
         await this.initialize();
       } else {
         await this.$axios.$post("/api/products", this.editedItem);
         await this.initialize();
       }
       this.close();
-    },
-  },
+    }
+  }
 };
 </script>

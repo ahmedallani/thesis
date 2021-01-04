@@ -1,8 +1,7 @@
-
 export const strict = false;
 
 export const state = () => ({
-  user : { username: false }
+  user: { username: false }
 });
 export const getters = {
   // count2x: state => {
@@ -18,6 +17,6 @@ export const mutations = {
 
 export const actions = {
   changeUser({ commit }, user) {
-    commit("changeUser", user)
+    commit("changeUser", user);
   }
-}
+};

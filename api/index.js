@@ -122,6 +122,7 @@ app.delete("/logout", (req, res) => {
   res.sendStatus(204);
   // res.redirect("/login");
 });
+
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect("/");

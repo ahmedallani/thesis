@@ -22,9 +22,8 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>Logout</v-list-item>
       </v-list>
-      
-      
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -39,8 +38,8 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
+      <v-btn text @click="logout">
+        Logout
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -153,6 +152,12 @@ export default {
       } else {
         this.changeUser({ username: false });
       }
+    },
+    async logout() {
+      console.log("logout");
+      await this.$axios.$delete(`/api/logout`);
+      await this.initialize();
+      this.$router.push("/login");
     }
   }
 };
