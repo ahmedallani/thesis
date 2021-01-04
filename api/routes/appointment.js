@@ -18,49 +18,44 @@ router.route("/").post(function(req, res) {
       <li>Place: ${req.body.place}</li>
       <li>Number Of People: ${req.body.numberOfPeople}</li>
     </ul>
-
   `;
 
-  var transporter = nodemailer.createTransport(
-    smtpTransport({
-      service: "gmail",
-      host: "smtp.gmail.com",
-      auth: {
-        user: "email",
-        pass: "password"
-      }
-    })
-  );
-
-  // setup email data with unicode symbols
-  let mailOptions = {
-    from: "mail", // sender addresss
-    to: "mail", // list of receivers
-    subject: "Node Contact Request", // Subject line
-    text: "hiiiiiiii", // plain text body
-    html: output // html body
-  };
-
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return console.log(error);
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'escapercompany@gmail.com',
+      pass: 'escaperrbk2021'
     }
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-    res.render("contact", info.response);
   });
+  
+  var mailOptions = {
+    from: 'escapercompany@gmail.com',
+    to: 'messaoudighofrane2@gmail.com , dhiadhaferr@gmail.com , ahmedbouhrira365@gmail.com  ',
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!',
+    html:output
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+      res.send({error});
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send({info})
+    }
+  });
+ 
 });
 
-// router.route("/").post(function(req, res) {
-//   appointmentControle.create(req.body, (err, data) => {
-//     if (err) {
-//       throw err;
-//     }
-//     res.send(data);
-//   });
-// });
+router.route("/").post(function(req, res) {
+  appointmentControle.create(req.body, (err, data) => {
+    if (err) {
+      throw err;
+    }
+    res.send(data);
+  });
+});
 
 router.route("/").get(function(req, res) {
   appointmentControle.read((err, data) => {
