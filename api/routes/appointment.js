@@ -48,14 +48,14 @@ router.route("/").post(function(req, res) {
  
 });
 
-// router.route("/").post(function(req, res) {
-//   appointmentControle.create(req.body, (err, data) => {
-//     if (err) {
-//       throw err;
-//     }
-//     res.send(data);
-//   });
-// });
+router.route("/").post(function(req, res) {
+  appointmentControle.create(req.body, (err, data) => {
+    if (err) {
+      throw err;
+    }
+    res.send(data);
+  });
+});
 
 router.route("/").get(function(req, res) {
   appointmentControle.read((err, data) => {
