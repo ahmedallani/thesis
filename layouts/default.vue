@@ -109,11 +109,6 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Blog",
             to: "/blog"
-          },
-          {
-            icon: "mdi mdi-human",
-            title: "Add New Activity",
-            to: "/addActivity"
           }
         ];
       } else {
