@@ -58,8 +58,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/user", (req, res) => {
+  
   if (req.isAuthenticated()) {
-    return res.send({ username: req.user.username });
+    console.log({ username: req.user.username, type: req.user.type })
+    return res.send({ username: req.user.username, type: req.user.type });
   } else {
     return res.send({ username: false });
   }
