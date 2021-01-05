@@ -1,22 +1,29 @@
 <template>
-  <v-card>
-    <form>
-      <v-row justify="center">
-        <v-col cols="12" sm="10">
-          <v-text-field
-            v-model="message"
-            label="Send Your Message Here"
-            required
-            @input="$v.message.$touch()"
-            @blur="$v.message.$touch()"
-          ></v-text-field>
-          <v-btn class="mr-4" @click="submit">
-            Send
-          </v-btn>
-        </v-col>
-      </v-row>
-    </form>
-  </v-card>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" sm="10">
+        <v-card class="pa-4">
+          <v-list id="messages" dense v-for="(msg, i) in messages" :key="i">
+            {{ msg.message }}
+          </v-list>
+          <v-card height="200px" class="scroll"> </v-card>
+          <v-form>
+            <v-text-field
+              v-model="message"
+              label="Send Your Message Here"
+              required
+              @input="$v.message.$touch()"
+              @blur="$v.message.$touch()"
+            ></v-text-field>
+            <v-btn color="success" @click="submit">
+              Send
+              <v-icon dark right> mdi-send </v-icon>
+            </v-btn>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -31,10 +38,17 @@ export default {
   },
 
   data: () => ({
-    message: ""
+    message: "",
+    messages: []
   }),
-
+  created() {
+    this.get();
+  },
   methods: {
+    async get() {
+      const msg = await this.$axios.$get("/api/chat");
+      this.messages = msg;
+    },
     async submit() {
       this.$v.$touch();
 
@@ -48,3 +62,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.scroll {
+  overflow-y: auto;
+}
+</style>
