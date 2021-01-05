@@ -43,8 +43,8 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      {{ user }}
-      <v-container>
+      <!-- {{ user }} -->
+      <v-container class="pa-0">
         <nuxt />
       </v-container>
     </v-main>
