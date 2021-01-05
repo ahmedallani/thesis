@@ -74,6 +74,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -108,11 +109,6 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Blog",
             to: "/blog"
-          },
-          {
-            icon: "mdi mdi-human",
-            title: "Add New Activity",
-            to: "/addActivity"
           }
         ];
       } else {

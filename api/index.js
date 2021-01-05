@@ -52,19 +52,17 @@ routers.use(
   })
 );
 
-routers.get("/user", (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.send({ username: req.user.username });
-  } else {
-    return res.send({ username: false });
-  }
-});
+
 
 routers.use(passport.initialize());
 routers.use(passport.session());
 routers.get("/user", (req, res) => {
-  console.log({ user: req.user });
-  res.json({ user: req.user });
+  if (req.isAuthenticated()) {
+    console.log({ username: req.user.username, type: req.user.type })
+    return res.send({ username: req.user.username, type: req.user.type });
+  } else {
+    return res.send({ username: false });
+  }
 });
 
 routers.post("/login", passport.authenticate("local"), function(req, res) {
@@ -142,7 +140,6 @@ routers.get("/images/:img", (req, res) => {
 });
 
 var activity = require("./routes/activity.js");
-
 routers.use("/activity", activity);
 
 // View engine setup
