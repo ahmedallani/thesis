@@ -9,6 +9,7 @@ const passportLocal = require("./passportLocal");
 const passportGoogle = require("./passportGoogle");
 const passportFacebook = require("./passportFacebook");
 const User = require("./db/models/users.js");
+const chat = require("./routes/chat.js")
 const app = express();
 const routers = express.Router();
 const mongoose = require("mongoose");
@@ -141,7 +142,7 @@ routers.get("/images/:img", (req, res) => {
 
 var activity = require("./routes/activity.js");
 routers.use("/activity", activity);
-
+routers.use("/chat",chat)
 // View engine setup
 
 app.use("/api", routers);
