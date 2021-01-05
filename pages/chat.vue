@@ -42,10 +42,10 @@ export default {
     messages:[]
   }),
   created() {
-    this.get();
+    this.initialize();
   },
   methods: {
-    async get(){
+    async initialize(){
       const msg = await this.$axios.$get("/api/chat");
       this.messages = msg
     },
