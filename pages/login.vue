@@ -67,6 +67,7 @@ export default {
           password: this.password
         };
         let rtn = await this.$axios.$post("/api/login", userObj);
+        this.$router.push("/");
 
         console.log({ user, rtn });
         const user = await this.$axios.$get("/api/user");
