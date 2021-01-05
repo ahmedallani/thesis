@@ -2,11 +2,11 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="10">
-        <v-card class="pa-4">
+          <v-card height="200px" class="scroll"> 
           <v-list id="messages" dense v-for="(msg, i) in messages" :key="i">
-            {{ msg.message }}
+            {{ msg.message}}
           </v-list>
-          <v-card height="200px" class="scroll"> </v-card>
+          </v-card>
           <v-form>
             <v-text-field
               v-model="message"
@@ -20,7 +20,7 @@
               <v-icon dark right> mdi-send </v-icon>
             </v-btn>
           </v-form>
-        </v-card>
+        
       </v-col>
     </v-row>
   </v-container>
@@ -39,15 +39,15 @@ export default {
 
   data: () => ({
     message: "",
-    messages: []
+    messages:[]
   }),
   created() {
     this.get();
   },
   methods: {
-    async get() {
+    async get(){
       const msg = await this.$axios.$get("/api/chat");
-      this.messages = msg;
+      this.messages = msg
     },
     async submit() {
       this.$v.$touch();
@@ -56,9 +56,10 @@ export default {
         message: this.message
       };
 
-      let rtn = await this.$axios.$post("/api/chat", user);
+     let rtn = await this.$axios.$post("/api/chat", user);
       console.log({ user, rtn });
     }
+  
   }
 };
 </script>
