@@ -50,9 +50,12 @@ export default {
   methods: {
     async initialize() {
       let msg;
+      console.log("user",this.user)
       if (this.user.type === "admin") {
+        console.log("admin")
         msg = await this.$axios.$get("/api/chat?to=5ff4cbf31e929e151c93c543");
       } else {
+        console.log("normal")
         msg = await this.$axios.$get("/api/chat");
       }
       this.messages = msg;

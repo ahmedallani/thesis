@@ -6,11 +6,11 @@ let adminId = "5ff4e6d86ed18531d8b098ea";
 
 router.route("/").post(function(req, res) {
   let to
-  let testTo = "to" in req.params;
+  let testTo = "to" in req.query
   if (!testTo) {
     to = adminId;
   } else {
-    to = req.params.to;
+    to = req.query.to;
   }
   let chat = {
     from: req.user._id,
@@ -26,12 +26,13 @@ router.route("/").post(function(req, res) {
 });
 
 router.route("/").get(function(req, res) {
+  console.log("req.query",req.query)
   let to
-  let testTo = "to" in req.params;
+  let testTo = "to" in req.query;
   if (!testTo) {
     to = adminId;
   } else {
-    to = req.params.to;
+    to = req.query.to;
   }
   chatControle.read(req.user._id, to, (err, data) => {
     if (err) {

@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 
 function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
-    debugger
     try {
       const user = await getUserByEmail(email);
       if (user == null) {
@@ -28,7 +27,6 @@ function initialize(passport, getUserByEmail, getUserById) {
     )
   );
   passport.serializeUser((user, done) => {
-    debugger
     done(null, user._id)
   });
   passport.deserializeUser(async (id, done) => {
