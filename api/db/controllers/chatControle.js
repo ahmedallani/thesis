@@ -11,6 +11,9 @@ module.exports = {
         { from: user1, to: user2 },
         { from: user2, to: user1 }
       ]
-    }).exec(callbacks);
+    })
+      .populate("from","username")
+      .populate("to","username")
+      .exec(callbacks);
   }
 };

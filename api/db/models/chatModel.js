@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
 
 const chatSchema = mongoose.Schema({
- from:{type:String},
- message:{type:String},
- to:{type:String}
-})
+  from: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  message: { type: String },
+  to: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+});
 
-const Chat = mongoose.model("chat",chatSchema)
+const Chat = mongoose.model("chat", chatSchema);
 
-module.exports.Chat = Chat
+module.exports.Chat = Chat;

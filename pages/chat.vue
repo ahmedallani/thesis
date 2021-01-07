@@ -4,13 +4,13 @@
       <v-col cols="12" sm="10">
         <v-card height="200px" class="scroll">
           <v-list id="messages" dense v-for="(msg, i) in messages" :key="i">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>{{ msg.from }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ msg.message }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{ msg.from.username }}</v-list-item-title>
+                <v-list-item-subtitle>{{ msg.message }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
         </v-card>
         <v-form>
           <v-select
@@ -45,41 +45,44 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    message: { required },
+    message: { required }
   },
 
   data: () => ({
     message: "",
     messages: [],
     users: [],
-    to: "",
+    to: ""
   }),
   created() {
     this.initialize();
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user"])
   },
   methods: {
     async initialize() {
       const users = await this.$axios.$get("/api/users");
       this.users = users;
-      await this.getMessages()
+      await this.getMessages();
     },
     async submit() {
       let rtn;
       let chat = {
         message: this.message,
-        to: this.to,
+        to: this.to
       };
       rtn = await this.$axios.$post("/api/chats", chat);
       this.getMessages();
     },
-    async getMessages(){
-      const messages = await this.$axios.$get(`/api/chats?user2=${this.to}`);
-      this.messages = messages;
+    async getMessages() {
+      if (this.to) {
+        const messages = await this.$axios.$get(`/api/chats?user2=${this.to}`);
+        console.log({ messages });
+        this.messages = messages;
+      }
     }
-  },
+  }
 };
 </script>
 <style scoped>
