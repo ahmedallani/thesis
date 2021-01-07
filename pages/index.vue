@@ -46,7 +46,7 @@
             >
               <h1 class="text-center font-size">RESERVE</h1>
               <div class="text-center">
-                <v-btn href="/appointment" class="white--text " outlined
+                <v-btn href="/services" class="white--text " outlined
                   >RESERVE NOW</v-btn
                 >
               </div>
