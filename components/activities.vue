@@ -55,6 +55,8 @@
               <div>{{ activity.description }}</div>
               <div>{{ activity.price }}</div>
             </v-card-text>
+
+            
             <v-spacer></v-spacer>
             <v-card-actions>
               <v-btn color="warning" text @click="editItem(activity)">

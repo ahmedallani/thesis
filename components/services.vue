@@ -1,14 +1,20 @@
 <template>
   <v-card class="mx-auto" max-width="500">
     <v-container fluid>
-      <v-row dense>
-        <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
-          <v-card>
+      <v-row class="mb-6">
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          :cols="card.flex"
+          sm="5"
+          md="6"
+        >
+          <v-card class="pa-2">
             <v-img :src="card.src" class="white--text align-end" height="200px">
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
             <v-btn
-              to="/appointment"
+              to="/description"
               x-small
               color="secondary"
               dark

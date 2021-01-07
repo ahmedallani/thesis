@@ -1,5 +1,5 @@
 let obj = require("vuetify/es5/util/colors");
-let colors = obj.default
+let colors = obj.default;
 module.exports = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   serverMiddleware: ["~/api/index.js"],
@@ -33,7 +33,8 @@ module.exports = {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
-    "mdbvue/nuxt"
+    "mdbvue/nuxt",
+    "nuxt-leaflet"
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
