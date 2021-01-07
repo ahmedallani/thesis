@@ -142,8 +142,8 @@ routers.get("/images/:img", (req, res) => {
 var activity = require("./routes/activity.js");
 routers.use("/activity", activity);
 
-const chat = require("./routes/chat.js")
-routers.use("/chat",chat)
+const chats = require("./routes/chats.js")
+routers.use("/chats",chats)
 
 var users = require("./routes/users.js");
 routers.use("/users", users);

@@ -5,11 +5,11 @@ module.exports = {
     const app = new Chat(obj);
     app.save(callbacks);
   },
-  read: (id1, id2, callbacks) => {
+  read: ({ user1, user2 }, callbacks) => {
     Chat.find({
       $or: [
-        { from: id1, to: id2 },
-        { from: id2, to: id1 }
+        { from: user1, to: user2 },
+        { from: user2, to: user1 }
       ]
     }).exec(callbacks);
   }

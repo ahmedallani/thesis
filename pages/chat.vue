@@ -4,16 +4,27 @@
       <v-col cols="12" sm="10">
         <v-card height="200px" class="scroll">
           <v-list id="messages" dense v-for="(msg, i) in messages" :key="i">
-            {{ msg.message }}
-          </v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ msg.from }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ msg.message }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
         </v-card>
         <v-form>
+          <v-select
+            label="Send to"
+            v-model="to"
+            :items="users"
+            item-value="_id"
+            item-text="username"
+            @change="getMessages"
+          ></v-select>
           <v-text-field
             v-model="message"
             label="Send Your Message Here"
             required
-            @input="$v.message.$touch()"
-            @blur="$v.message.$touch()"
           ></v-text-field>
           <v-btn color="success" @click="submit">
             Send
@@ -34,51 +45,41 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    message: { required }
+    message: { required },
   },
 
   data: () => ({
     message: "",
-    messages: []
+    messages: [],
+    users: [],
+    to: "",
   }),
   created() {
     this.initialize();
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user"]),
   },
   methods: {
     async initialize() {
-      let msg;
-      console.log("user",this.user)
-      if (this.user.type === "admin") {
-        console.log("admin")
-        msg = await this.$axios.$get("/api/chat?to=5ff4cbf31e929e151c93c543");
-      } else {
-        console.log("normal")
-        msg = await this.$axios.$get("/api/chat");
-      }
-      this.messages = msg;
+      const users = await this.$axios.$get("/api/users");
+      this.users = users;
+      await this.getMessages()
     },
     async submit() {
-      this.$v.$touch();
       let rtn;
-      let user = {
-        message: this.message
+      let chat = {
+        message: this.message,
+        to: this.to,
       };
-      if (this.user.type === "admin") {
-        rtn = await this.$axios.$post(
-          "/api/chat?to=5ff4cbf31e929e151c93c543",
-          user
-        );
-      } else {
-        rtn = await this.$axios.$post("/api/chat", user);
-      }
-
-      console.log({ user, rtn });
-      this.initialize();
+      rtn = await this.$axios.$post("/api/chats", chat);
+      this.getMessages();
+    },
+    async getMessages(){
+      const messages = await this.$axios.$get(`/api/chats?user2=${this.to}`);
+      this.messages = messages;
     }
-  }
+  },
 };
 </script>
 <style scoped>

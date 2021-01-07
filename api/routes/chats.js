@@ -2,20 +2,13 @@ var express = require("express");
 var router = express.Router();
 
 const chatControle = require("../db/controllers/chatControle.js");
-let adminId = "5ff4e6d86ed18531d8b098ea";
+// let adminId = "5ff4e6d86ed18531d8b098ea";
 
 router.route("/").post(function(req, res) {
-  let to
-  let testTo = "to" in req.query
-  if (!testTo) {
-    to = adminId;
-  } else {
-    to = req.query.to;
-  }
   let chat = {
     from: req.user._id,
     message: req.body.message,
-    to: to
+    to: req.body.to
   };
   chatControle.create(chat, (err, data) => {
     if (err) {
@@ -26,15 +19,12 @@ router.route("/").post(function(req, res) {
 });
 
 router.route("/").get(function(req, res) {
-  console.log("req.query",req.query)
-  let to
-  let testTo = "to" in req.query;
-  if (!testTo) {
-    to = adminId;
-  } else {
-    to = req.query.to;
-  }
-  chatControle.read(req.user._id, to, (err, data) => {
+  console.log("req.query", req.query);
+  let obj = {
+    user1: req.user._id,
+    user2: req.query.user2
+  };
+  chatControle.read(obj, (err, data) => {
     if (err) {
       throw err;
     }
