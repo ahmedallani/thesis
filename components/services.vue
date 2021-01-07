@@ -14,7 +14,7 @@
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
             <v-btn
-              to="/description"
+              to="/"
               x-small
               color="secondary"
               dark

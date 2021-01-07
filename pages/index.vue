@@ -71,16 +71,16 @@
           </v-card>
         </div> -->
       <!-- </div> -->
-      <services />
+      <activities />
     </div>
   </v-container>
 </template>
 
 <script>
-import services from "@/components/services";
-// import activities from "@/components/activities.vue";
+// import services from "@/components/services";
+import activities from "@/components/activities.vue";
 export default {
-  components: { services },
+  components: { activities },
   data() {
     return {
       items: [

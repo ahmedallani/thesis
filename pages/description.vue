@@ -1,9 +1,9 @@
 <template>
-  <activities />
-</template>
+
+
+
+
+ </template>
 <script>
-import activities from "@/components/activities.vue";
-export default {
-  components: { activities }
-};
+export default {};
 </script>

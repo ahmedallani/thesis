@@ -56,8 +56,8 @@
               <div>{{ activity.price }}</div>
             </v-card-text>
 
-            
             <v-spacer></v-spacer>
+
             <v-card-actions>
               <v-btn color="warning" text @click="editItem(activity)">
                 edit
@@ -65,6 +65,16 @@
 
               <v-btn color="danger" text @click="deleteItem(activity)">
                 delete
+              </v-btn>
+
+              <v-btn
+                to="/description"
+                x-small
+                color="secondary"
+                dark
+                :style="{ left: '50%', transform: 'translateX(-50%)' }"
+              >
+                See Details
               </v-btn>
             </v-card-actions>
           </v-card>
