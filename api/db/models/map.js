@@ -5,7 +5,7 @@ const mapSchema = mongoose.Schema({
 		type : Point,
 		coordinates : []
   },
-  discription: String
+  title: String
 });
 
 const Modelmap = mongoose.model("map", mapSchema);
