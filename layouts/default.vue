@@ -44,7 +44,7 @@
     </v-app-bar>
     <v-main>
       {{ user }}
-      <v-container>
+      <v-container class="pa-0">
         <nuxt />
       </v-container>
     </v-main>

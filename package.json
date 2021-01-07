@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "server": "nodemon api/server",
-    "debug": "ndb nuxt",
+    "debug": "ndb api/server",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
