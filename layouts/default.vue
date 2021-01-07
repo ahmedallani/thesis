@@ -133,6 +133,11 @@ export default {
             icon: "mdi mdi-human",
             title: "Add New Activity",
             to: "/addActivity"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Chat",
+            to: "/chat"
           }
         ];
       }
