@@ -35,8 +35,8 @@
           </v-row>
         </v-carousel-item>
       </v-carousel>
-      <div class="pl-4 pr-4 row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+      <!-- <div class="pl-4 pr-4 row"> -->
+      <!-- <div class="col-md-6 col-sm-6 col-xs-12">
           <v-card>
             <v-img
               :src="require('../assets/slider2.jpg')"
@@ -46,14 +46,14 @@
             >
               <h1 class="text-center font-size">RESERVE</h1>
               <div class="text-center">
-                <v-btn href="/appointment" class="white--text " outlined
+                <v-btn href="/services" class="white--text " outlined
                   >RESERVE NOW</v-btn
                 >
               </div>
             </v-img>
           </v-card>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        </div> -->
+      <!-- <div class="col-md-6 col-sm-6 col-xs-12">
           <v-card>
             <v-img
               :src="require('../assets/slider3.jpg')"
@@ -69,17 +69,18 @@
               </div>
             </v-img>
           </v-card>
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
+      <services />
     </div>
-    <activities />
   </v-container>
 </template>
 
 <script>
-import activities from "@/components/activities.vue";
+import services from "@/components/services";
+// import activities from "@/components/activities.vue";
 export default {
-  components: { activities },
+  components: { services },
   data() {
     return {
       items: [

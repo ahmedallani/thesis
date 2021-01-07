@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const ActivitySchema = new Schema({
   image: String,
   description: String,
-  price: Number
+  price: Number,
 });
 
 const Activity = mongoose.model("activity", ActivitySchema);
