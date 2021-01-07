@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
-var mapControle = require("../db/controllers/mapControle.js");
+var placeControle = require("../db/controllers/placeControle.js");
 
 router.route("/").get(function(req, res) {
-  mapControle.read((err, data) => {
+  placeControle.read((err, data) => {
     if (err) {
       throw err;
     }
@@ -13,12 +13,12 @@ router.route("/").get(function(req, res) {
 
 router.post("/", function(req, res) {
   const obj = {
-    title:req.body.title,
-    type:req.body.type,
-    coordinates :req.body.coordinates
+    lat : req.body.lat,
+    lng: req.body.lng,
+    title:req.body.title
   };
   console.log("obj", obj);
-  mapControle.create(obj, (err, data) => {
+  placeControle.create(obj, (err, data) => {
     if (err) {
       throw err;
     }
@@ -26,9 +26,9 @@ router.post("/", function(req, res) {
   });
 });
 
-router.route("/:id").delete((req, res) => {
+router.delete("/:id", function(req, res) {
   console.log(req.params.id);
-  mapControl.delete(req.params.id, (err, data) => {
+  placeControl.delete(req.params.id, (err, data) => {
     if (err) {
       throw err;
     }

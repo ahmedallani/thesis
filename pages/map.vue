@@ -37,7 +37,7 @@
 export default {
   data: () => ({
     places: [],
-    customText: ""
+    customText: "",
   }),
   created() {
     this.initialize();
@@ -62,13 +62,13 @@ export default {
         };
         console.log(event, event.latlng);
         this.places.push(place);
-        await this.$axios.$post("/api/map", place);
+        await this.$axios.$post("/api/place", place);
       }
     },
-    async removeMarker(index) {
-      this.places.splice(index, 1);
-      await this.$axios.$delete(`/api/map/${this.place._id}`);
-    }
+    // async removeMarker(index) {
+    //   this.places.splice(index, 1);
+    //   await this.$axios.$delete(`/api/place/${this.place._id}`);
+    // }
   }
 };
 </script>
