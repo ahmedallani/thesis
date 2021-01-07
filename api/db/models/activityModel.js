@@ -6,9 +6,6 @@ const ActivitySchema = new Schema({
   image: String,
   description: String,
   price: Number,
-  // place_Id: Number
-
-  
 });
 
 const Activity = mongoose.model("activity", ActivitySchema);

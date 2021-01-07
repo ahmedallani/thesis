@@ -14,13 +14,13 @@
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
             <v-btn
-              to="/"
+              to="/descriptionCamp"
               x-small
               color="secondary"
               dark
               :style="{ left: '50%', transform: 'translateX(-50%)' }"
             >
-              Reserve now
+              See Details
             </v-btn>
           </v-card>
         </v-col>

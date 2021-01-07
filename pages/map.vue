@@ -39,12 +39,19 @@ export default {
     places: [],
     customText: ""
   }),
+  created(){
+    this.initialize()
+  },
   methods: {
+    async initialize() {
+      const map = await this.$axios.$get("/api/map");
+      this.places = map;
+    },
     getLatLng({ lat, lng }) {
       console.log([lat, lng]);
       return [lat, lng];
     },
-    addMarker(event) {
+    async addMarker(event) {
       let { lat, lng } = event.latlng;
       if (this.customText !== "") {
         let place = {
@@ -55,10 +62,13 @@ export default {
         };
         console.log(event, event.latlng);
         this.places.push(place);
+        await this.$axios.$post("/api/map", place);
       }
+
     },
-    removeMarker(index) {
+    async removeMarker(index) {
       this.places.splice(index, 1);
+    await this.$axios.$delete(`/api/map/${this.place._id}`) 
     }
   }
 };

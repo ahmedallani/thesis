@@ -20,8 +20,10 @@ router.post("/", upload.single("image"), function(req, res) {
     image: req.file.originalname,
     description: req.body.description,
     price: req.body.price,
+
   };
   console.log("obj", obj);
+
   activityControl.create(obj, (err, data) => {
     if (err) {
       throw err;

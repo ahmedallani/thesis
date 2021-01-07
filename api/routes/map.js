@@ -1,17 +1,8 @@
 var express = require("express");
-var mapControle = require("../db/controllers/mapControle.js");
 var router = express.Router();
+var mapControle = require("../db/controllers/mapControle.js");
 
-router.route("/").post(function (req, res) {
-  debugger;
-  mapControle.create(req.body, (err, data) => {
-    if (err) {
-      throw err;
-    }
-    res.send(data);
-  });
-});
-router.route("/").get(function (req, res) {
+router.route("/").get(function(req, res) {
   mapControle.read((err, data) => {
     if (err) {
       throw err;
@@ -19,13 +10,30 @@ router.route("/").get(function (req, res) {
     res.send(data);
   });
 });
-router.route("/:id").delete((req, res) => {
-  console.log(req.params.id);
-  mapControle.delete(req.params.id, (err, data) => {
+
+router.post("/", function(req, res) {
+  const obj = {
+    title:req.body.title,
+    type:req.body.type,
+    coordinates :req.body.coordinates
+  };
+  console.log("obj", obj);
+  mapControle.create(obj, (err, data) => {
     if (err) {
       throw err;
     }
     res.send(data);
   });
 });
-module.exports = router;
+
+router.route("/:id").delete((req, res) => {
+  console.log(req.params.id);
+  mapControl.delete(req.params.id, (err, data) => {
+    if (err) {
+      throw err;
+    }
+    res.send(data);
+  });
+});
+
+module.exports = router

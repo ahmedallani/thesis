@@ -34,9 +34,11 @@
             </v-row>
           </v-container>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+          <v-btn color="blue darken-1" text to="/map"> Add Place</v-btn>
           <v-btn color="blue darken-1" text @click="validate"> Save </v-btn>
         </v-card-actions>
       </v-card>
@@ -65,16 +67,6 @@
 
               <v-btn color="danger" text @click="deleteItem(activity)">
                 delete
-              </v-btn>
-
-              <v-btn
-                to="/description"
-                x-small
-                color="secondary"
-                dark
-                :style="{ left: '50%', transform: 'translateX(-50%)' }"
-              >
-                See Details
               </v-btn>
             </v-card-actions>
           </v-card>

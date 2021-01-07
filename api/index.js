@@ -135,6 +135,9 @@ routers.use("/blogs", blogs);
 var appointment = require("./routes/appointment.js");
 routers.use("/appointment", appointment);
 
+var map = require("./routes/map.js")
+routers.use("/map",map)
+
 routers.get("/images/:img", (req, res) => {
   res.sendFile(path.join(__dirname, "uploads", req.params.img));
 });

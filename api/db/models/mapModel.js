@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 const mapSchema = mongoose.Schema({
   location: {
-		type : Point,
+		type : ['Point'],
 		coordinates : []
   },
   title: String
