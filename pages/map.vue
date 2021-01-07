@@ -24,9 +24,9 @@
             :key="index"
             @click="removeMarker(index)"
           >
-            <l-tooltip :options="{ permanent: true, interactive: true }"
-              >{{ place.title }}</l-tooltip
-            >
+            <l-tooltip :options="{ permanent: true, interactive: true }">{{
+              place.title
+            }}</l-tooltip>
           </l-marker>
         </l-map>
       </no-ssr>
@@ -39,13 +39,13 @@ export default {
     places: [],
     customText: ""
   }),
-  created(){
-    this.initialize()
+  created() {
+    this.initialize();
   },
   methods: {
     async initialize() {
-      const map = await this.$axios.$get("/api/map");
-      this.places = map;
+      // const map = await this.$axios.$get("/api/map");
+      // this.places = map;
     },
     getLatLng({ lat, lng }) {
       console.log([lat, lng]);
@@ -64,11 +64,10 @@ export default {
         this.places.push(place);
         await this.$axios.$post("/api/map", place);
       }
-
     },
     async removeMarker(index) {
       this.places.splice(index, 1);
-    await this.$axios.$delete(`/api/map/${this.place._id}`) 
+      await this.$axios.$delete(`/api/map/${this.place._id}`);
     }
   }
 };
