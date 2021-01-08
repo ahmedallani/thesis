@@ -1,13 +1,18 @@
 <template>
   <div>
-    <div>
-      <v-text-field
-        v-model="customText"
-        label="Place Title"
-        required
-      ></v-text-field
-      ><br /><br />
-    </div>
+    <v-flex>
+      <div>
+        <v-text-field
+          class="map"
+          prepend-icon="mdi-map-marker"
+          v-model="customText"
+          label="Place Title"
+          required
+          clearable
+        ></v-text-field
+        ><br /><br />
+      </div>
+    </v-flex>
     <div id="map-wrap" style="height: 80vh">
       <no-ssr>
         <l-map
@@ -45,12 +50,14 @@ export default {
   },
   methods: {
     async initialize() {
-      const places = await this.$axios.$get(`/api/place/${this.$route.params.id}`);
+      const places = await this.$axios.$get(
+        `/api/place/${this.$route.params.id}`
+      );
 
       this.places = places;
     },
     getLatLng({ lat, lng }) {
-      console.log([lat, lng]);
+      // console.log([lat, lng]);
       return [lat, lng];
     },
     async addMarker(event) {
@@ -79,5 +86,9 @@ export default {
 <style scoped>
 #customTextInput {
   background-color: white;
+}
+.map {
+  width: 300px;
+  /* height: 150px; */
 }
 </style>
