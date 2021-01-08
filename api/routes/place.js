@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 var placeControle = require("../db/controllers/placeControle.js");
 
-router.route("/").get(function (req, res) {
-  placeControle.read((err, data) => {
+router.route("/:id").get(function (req, res) {
+  placeControle.read(req.params.id, (err, data) => {
     if (err) {
       throw err;
     }
@@ -13,6 +13,7 @@ router.route("/").get(function (req, res) {
 
 router.post("/", function (req, res) {
   const obj = {
+    activity: req.body.activity,
     lat: req.body.lat,
     lng: req.body.lng,
     title: req.body.title,
@@ -28,7 +29,6 @@ router.post("/", function (req, res) {
 
 router.delete("/:id", function (req, res) {
   console.log(req.params.id);
-  bn;
   placeControle.delete(req.params.id, (err, data) => {
     if (err) {
       throw err;

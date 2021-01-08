@@ -4,8 +4,8 @@ module.exports = {
     const place = new PlaceModel(obj);
     place.save(callbacks);
   },
-  read: callbacks => {
-    PlaceModel.find().exec(callbacks);
+  read: (id,callbacks)=> {
+    PlaceModel.find({activity:id}).exec(callbacks);
   },
   delete: (id, callback) => {
     PlaceModel.findOneAndDelete({ _id: id }).exec(callback);
