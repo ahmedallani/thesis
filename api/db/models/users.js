@@ -5,7 +5,9 @@ const UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   provider: String,
-  providerId: String
+  googleId: String,
+  type: String,
+  socket: String
 });
 UserSchema.methods.validPassword = async function(password) {
   try {
@@ -89,5 +91,6 @@ module.exports = {
   login,
   getUserById,
   getUserByEmail,
-  findOrCreate
+  findOrCreate,
+  User
 };
