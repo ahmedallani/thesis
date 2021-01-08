@@ -56,6 +56,7 @@ export default {
       let { lat, lng } = event.latlng;
       if (this.customText !== "") {
         let place = {
+          activity:"id",
           lat,
           lng,
           title: this.customText,
