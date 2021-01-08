@@ -33,11 +33,13 @@ module.exports = {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
+    "mdbvue/nuxt",
     "nuxt-leaflet"
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
+  mdbvue:{},
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

@@ -5,7 +5,8 @@
         v-model="customText"
         label="Place Title"
         required
-      ></v-text-field>
+      ></v-text-field
+      ><br /><br />
     </div>
     <div id="map-wrap" style="height: 80vh">
       <no-ssr>
@@ -24,9 +25,9 @@
             :key="index"
             @click="removeMarker(index)"
           >
-            <l-tooltip :options="{ permanent: true, interactive: true }"
-              >{{ place.title }}</l-tooltip
-            >
+            <l-tooltip :options="{ permanent: true, interactive: true }">{{
+              place.title
+            }}</l-tooltip>
           </l-marker>
         </l-map>
       </no-ssr>
@@ -37,30 +38,40 @@
 export default {
   data: () => ({
     places: [],
-    customText: ""
+    customText: "",
   }),
+  created() {
+    this.initialize();
+  },
   methods: {
+    async initialize() {
+      const places = await this.$axios.$get("/api/place");
+      this.places = places;
+    },
     getLatLng({ lat, lng }) {
       console.log([lat, lng]);
       return [lat, lng];
     },
-    addMarker(event) {
+    async addMarker(event) {
       let { lat, lng } = event.latlng;
       if (this.customText !== "") {
         let place = {
-          service_id: 1,
+          activity:"id",
           lat,
           lng,
-          title: this.customText
+          title: this.customText,
         };
-        console.log(event, event.latlng);
-        this.places.push(place);
+        await this.$axios.$post("/api/place", place);
+        await this.initialize();
       }
     },
-    removeMarker(index) {
-      this.places.splice(index, 1);
-    }
-  }
+    async removeMarker(index) {
+      let place = this.places[index];
+      console.log(index, place, this.places);
+      await this.$axios.$delete(`/api/place/${place._id}`);
+      await this.initialize();
+    },
+  },
 };
 </script>
 <style scoped>

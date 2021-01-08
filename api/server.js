@@ -27,10 +27,6 @@ io.on("connection", socket => {
     console.log("update", data);
     let user = await User.findOne({ _id: data.to });
     console.log(user)
-    // if (user.socket) {
-    //   // socket.broadcast.to(user.socket).emit("update", { from: data.from });
-    //   io.sockets.emit("update", {from: data.from});
-    // }
     io.sockets.emit("update", {from: data.from});
   });
 

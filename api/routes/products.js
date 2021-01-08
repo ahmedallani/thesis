@@ -3,7 +3,7 @@ var productControle = require("../db/controllers/productControle.js");
 
 var router = express.Router();
 
-router.route("/").post(function (req, res) {
+router.route("/").post(function(req, res) {
   productControle.create(req.body, (err, data) => {
     if (err) {
       throw err;
@@ -12,7 +12,7 @@ router.route("/").post(function (req, res) {
   });
 });
 
-router.route("/").get(function (req, res) {
+router.route("/").get(function(req, res) {
   productControle.read((err, data) => {
     if (err) {
       throw err;
@@ -21,9 +21,9 @@ router.route("/").get(function (req, res) {
   });
 });
 
-router.route("/:id").put(function (req, res) {
+router.route("/:id").put(function(req, res) {
   console.log(req.body);
-  productControle.update(req.params.id,req.body, (err, data) => {
+  productControle.update(req.params.id, req.body, (err, data) => {
     if (err) {
       throw err;
     }

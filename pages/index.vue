@@ -2,7 +2,7 @@
   <v-container>
     <div>
       <v-carousel cycle hide-delimiters>
-        <v-carousel-item :src="require('../assets/slider4.jpg')">
+        <v-carousel-item :src="require('../assets/slider10.jpg')">
           <v-row class="fill-height" align="center" justify="center">
             <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
               <strong>THE ESCAPER</strong>
@@ -35,51 +35,18 @@
           </v-row>
         </v-carousel-item>
       </v-carousel>
-      <div class="pl-4 pr-4 row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <v-card>
-            <v-img
-              :src="require('../assets/slider2.jpg')"
-              class="white--text align-center"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="400px"
-            >
-              <h1 class="text-center font-size">RESERVE</h1>
-              <div class="text-center">
-                <v-btn href="/appointment" class="white--text " outlined
-                  >RESERVE NOW</v-btn
-                >
-              </div>
-            </v-img>
-          </v-card>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-          <v-card>
-            <v-img
-              :src="require('../assets/slider3.jpg')"
-              class="white--text align-center"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="400px"
-            >
-              <h1 class="text-center font-size">CONTACT US</h1>
-              <div class="text-center">
-                <v-btn href="/messages" class="white--text" outlined
-                  >SEND NOW</v-btn
-                >
-              </div>
-            </v-img>
-          </v-card>
-        </div>
+      <div class="back">
+        <services />
       </div>
     </div>
-    <activities />
   </v-container>
 </template>
 
 <script>
-import activities from "@/components/activities.vue";
+import services from "@/components/services";
+// import activities from "@/components/activities.vue";
 export default {
-  components: { activities },
+  components: { services },
   data() {
     return {
       items: [
@@ -102,6 +69,7 @@ export default {
 };
 </script>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap");
 .v-card--reveal {
   align-items: center;
   bottom: 0;
@@ -110,4 +78,11 @@ export default {
   position: absolute;
   width: 100%;
 }
+strong {
+  font-family: "Hachi Maru Pop", cursive;
+  font-size: 70px;
+}
+/* .back {
+  
+} */
 </style>
