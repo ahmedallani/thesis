@@ -33,6 +33,7 @@
             Send
             <v-icon dark right> mdi-send </v-icon>
           </v-btn>
+          {{ socket.id }}
         </v-form>
       </v-col>
     </v-row>
@@ -49,7 +50,7 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    message: { required }
+    message: { required },
   },
 
   data: () => ({
@@ -58,19 +59,22 @@ export default {
     message: "",
     to: "",
     socket: "",
-    feedback: ""
+    feedback: "",
   }),
   async mounted() {
     this.socket = io.connect();
-    console.log("socket", this.socket);
-    await this.$axios.$put(`/api/users`, {
-      socket: this.socket.id
+    this.socket.on("connect",async () => {
+      console.log("Connection");
+      console.log("socket", this.socket.id);
+      let user = await this.$axios.$put(`/api/users`, {
+      socket: this.socket.id,
     });
-    this.socket.on("update", async data => {
+    });
+    this.socket.on("update", async (data) => {
       console.log({ data });
       this.getMessages();
     });
-    this.socket.on("typing", data => {
+    this.socket.on("typing", (data) => {
       this.feedback = data;
     });
   },
@@ -78,7 +82,7 @@ export default {
     this.initialize();
   },
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user"]),
   },
   methods: {
     async initialize() {
@@ -91,13 +95,13 @@ export default {
       let chatObject = {
         from: this.user._id,
         message: this.message,
-        to: this.to
+        to: this.to,
       };
       rtn = await this.$axios.$post("/api/chats", chatObject);
-      this.getMessages()
+      this.getMessages();
       let chat = this.socket.emit("update", {
         from: this.user._id,
-        to: this.to
+        to: this.to,
       });
     },
     async getMessages() {
@@ -109,8 +113,8 @@ export default {
     },
     typing() {
       this.socket.emit("typing", this.to);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
