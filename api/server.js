@@ -25,12 +25,12 @@ io.on("connection", socket => {
   // Handle chat event
   socket.on("update", async function(data) {
     console.log("update", data);
-    let user = await User.find({ _id: data.to });
+    let user = await User.findOne({ _id: data.to });
     console.log(user)
-    if (user.socket) {
-      // socket.broadcast.to(user.socket).emit("update", { from: data.from });
-      io.sockets.emit("update", {from: data.from});
-    }
+    // if (user.socket) {
+    //   // socket.broadcast.to(user.socket).emit("update", { from: data.from });
+    //   io.sockets.emit("update", {from: data.from});
+    // }
     io.sockets.emit("update", {from: data.from});
   });
 
