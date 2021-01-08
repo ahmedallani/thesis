@@ -51,10 +51,14 @@ export default {
   }),
   mounted() {
     this.socket = io.connect();
-    this.socket.on("chat", data => {
+    this.socket.on("chat", async data => {
       this.feedback = "";
       console.log({ data });
       this.messages.push(data);
+      await this.$axios.$put(
+          `/api/users`,
+          {socket:data.socket}
+        );
     });
     this.socket.on("typing", data => {
       this.feedback = data;

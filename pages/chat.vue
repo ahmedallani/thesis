@@ -60,11 +60,15 @@ export default {
     socket: "",
     feedback: ""
   }),
-  mounted() {
+  async mounted() {
     this.socket = io.connect();
-    this.socket.on("chat", data => {
-      this.feedback = "";
-      this.messages.push(data);
+    console.log("socket", this.socket);
+    await this.$axios.$put(`/api/users`, {
+      socket: this.socket.id
+    });
+    this.socket.on("update", async data => {
+      console.log({ data });
+      this.getMessages();
     });
     this.socket.on("typing", data => {
       this.feedback = data;
@@ -83,13 +87,18 @@ export default {
       await this.getMessages();
     },
     async submit() {
-    let chat = this.socket.emit("chat", {
+      let rtn;
+      let chatObject = {
+        from: this.user._id,
         message: this.message,
         to: this.to
-      })
-      let rtn;
-      rtn = await this.$axios.$post("/api/chats", chat);
-   
+      };
+      rtn = await this.$axios.$post("/api/chats", chatObject);
+      this.getMessages()
+      let chat = this.socket.emit("update", {
+        from: this.user._id,
+        to: this.to
+      });
     },
     async getMessages() {
       if (this.to) {
