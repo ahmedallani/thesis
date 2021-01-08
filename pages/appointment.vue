@@ -1,50 +1,57 @@
 <template>
-  <form>
-    <v-text-field
-      v-model="appointmentDate"
-      :error-messages="appointmentDateErrors"
-      :counter="10"
-      label="Appointment Date"
-      type="date"
-      required
-      @input="$v.appointmentDate.$touch()"
-      @blur="$v.appointmentDate.$touch()"
-    ></v-text-field>
-    <v-select
-      v-model="place"
-      :items="states"
-      menu-props="auto"
-      hide-details
-      :error-messages="placeErrors"
-      label="Place"
-      required
-      @input="$v.place.$touch()"
-      @blur="$v.place.$touch()"
-    ></v-select>
+  <v-container fluid>
+    <v-layout row wrap>
+      <v-flex xs12 class="text-xs-center" mt-5>
+        <h1 class="text">Reservation</h1>
+      </v-flex>
+      <v-flex xs12 sm6 offset-sm3 mt-3>
+        <v-text-field
+          v-model="appointmentDate"
+          :error-messages="appointmentDateErrors"
+          :counter="10"
+          label="Appointment Date"
+          type="date"
+          required
+          @input="$v.appointmentDate.$touch()"
+          @blur="$v.appointmentDate.$touch()"
+        ></v-text-field>
+        <v-select
+          v-model="place"
+          :items="states"
+          menu-props="auto"
+          hide-details
+          :error-messages="placeErrors"
+          label="Place"
+          required
+          @input="$v.place.$touch()"
+          @blur="$v.place.$touch()"
+        ></v-select>
 
-    <v-text-field
-      v-model="numberOfPeople"
-      :error-messages="numberOfPeopleErrors"
-      label="Number Of People"
-      type="number"
-      required
-      @input="$v.numberOfPeople.$touch()"
-      @blur="$v.numberOfPeople.$touch()"
-    ></v-text-field>
+        <v-text-field
+          v-model="numberOfPeople"
+          :error-messages="numberOfPeopleErrors"
+          label="Number Of People"
+          type="number"
+          required
+          @input="$v.numberOfPeople.$touch()"
+          @blur="$v.numberOfPeople.$touch()"
+        ></v-text-field>
 
-    <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-    ></v-checkbox>
+        <v-checkbox
+          v-model="checkbox"
+          :error-messages="checkboxErrors"
+          label="Do you agree?"
+          required
+          @change="$v.checkbox.$touch()"
+          @blur="$v.checkbox.$touch()"
+        ></v-checkbox>
 
-    <v-btn class="mr-4" @click="submit">
-      submit
-    </v-btn>
-  </form>
+        <v-btn class="mr-4" @click="submit">
+          submit
+        </v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -173,3 +180,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.text {
+  text-align: center;
+}
+</style>
