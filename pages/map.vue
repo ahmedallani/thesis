@@ -5,7 +5,8 @@
         v-model="customText"
         label="Place Title"
         required
-      ></v-text-field>
+      ></v-text-field
+      ><br /><br />
     </div>
     <div id="map-wrap" style="height: 80vh">
       <no-ssr>
@@ -44,8 +45,8 @@ export default {
   },
   methods: {
     async initialize() {
-      // const map = await this.$axios.$get("/api/map");
-      // this.places = map;
+      const places = await this.$axios.$get("/api/place");
+      this.places = places;
     },
     getLatLng({ lat, lng }) {
       console.log([lat, lng]);
@@ -55,21 +56,21 @@ export default {
       let { lat, lng } = event.latlng;
       if (this.customText !== "") {
         let place = {
-          service_id: 1,
           lat,
           lng,
-          title: this.customText
+          title: this.customText,
         };
-        console.log(event, event.latlng);
-        this.places.push(place);
         await this.$axios.$post("/api/place", place);
+        await this.initialize();
       }
     },
-    // async removeMarker(index) {
-    //   this.places.splice(index, 1);
-    //   await this.$axios.$delete(`/api/place/${this.place._id}`);
-    // }
-  }
+    async removeMarker(index) {
+      let place = this.places[index];
+      console.log(index, place, this.places);
+      await this.$axios.$delete(`/api/place/${place._id}`);
+      await this.initialize();
+    },
+  },
 };
 </script>
 <style scoped>
