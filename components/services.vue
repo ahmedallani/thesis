@@ -6,12 +6,12 @@
           v-for="card in cards"
           :key="card.title"
           :cols="card.flex"
-          sm="5"
-          md="6"
+          sm="10"
+          md="11"
         >
           <v-card class="pa-2">
             <v-img :src="card.src" class="white--text align-end" height="200px">
-              <v-card-title v-text="card.title"></v-card-title>
+              <v-card-title class="text" v-text="card.title"></v-card-title>
             </v-img>
             <v-btn
               to="/descriptionCamp"
@@ -72,3 +72,9 @@ export default {
   })
 };
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap");
+.text {
+  font-family: "Gloria Hallelujah", cursive;
+}
+</style>

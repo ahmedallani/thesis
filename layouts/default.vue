@@ -22,7 +22,6 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>Logout</v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
@@ -38,31 +37,59 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn text @click="logout">
-        Logout
+      <v-btn text to="/register" v-if="user.username === false">
+        Signup
       </v-btn>
+      <v-btn text to="login" v-if="user.username === false">
+        Login
+      </v-btn>
+      <v-menu
+        v-if="user.username !== false"
+        v-model="menu"
+        :close-on-content-click="false"
+        :nudge-width="200"
+        offset-x
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn dark v-bind="attrs" v-on="on">
+            <i class="fas fa-sign-out-alt"></i>
+            {{ user.username }}
+          </v-btn>
+        </template>
+
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-avatar>
+                <img
+                  src="https://p1.hiclipart.com/preview/359/957/100/face-icon-user-profile-user-account-avatar-icon-design-head-silhouette-neck-png-clipart.jpg"
+                />
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ user.username }}</v-list-item-title>
+                <v-list-item-subtitle>user</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+
+          <v-divider></v-divider>
+
+          <v-list> </v-list>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn color="primary" text @click="logout">
+              Logout
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-menu>
     </v-app-bar>
     <v-main>
-      {{ user }}
-      <v-container class="pa-0">
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -74,6 +101,7 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
+      menu: false,
 
       miniVariant: false,
       right: true,
@@ -95,16 +123,16 @@ export default {
             title: "Home",
             to: "/"
           },
-          {
-            icon: "mdi mdi-account-circle",
-            title: "Login",
-            to: "/login"
-          },
-          {
-            icon: "mdi mdi-account-check",
-            title: "Signup",
-            to: "/register"
-          },
+          // {
+          //   icon: "mdi mdi-account-circle",
+          //   title: "Login",
+          //   to: "/login"
+          // },
+          // {
+          //   icon: "mdi mdi-account-check",
+          //   title: "Signup",
+          //   to: "/register"
+          // },
           {
             icon: "mdi mdi-clipboard-text",
             title: "Blog",
@@ -123,11 +151,11 @@ export default {
             title: "Home",
             to: "/"
           },
-          {
-            icon: "mdi mdi-account-circle",
-            title: "Logout",
-            to: "/logout"
-          },
+          // {
+          //   icon: "mdi mdi-account-circle",
+          //   title: "Logout",
+          //   to: "/logout"
+          // },
 
           {
             icon: "mdi mdi-clipboard-text",
@@ -135,9 +163,9 @@ export default {
             to: "/blog"
           },
           {
-            icon: "mdi mdi-human",
-            title: "Add New Activity",
-            to: "/addActivity"
+            icon: "mdi mdi-clipboard-text",
+            title: "Add Services",
+            to: "/activities"
           }
         ];
       }
