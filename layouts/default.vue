@@ -142,6 +142,11 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Add Services",
             to: "/activities"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Reservation",
+            to: "/appointment"
           }
         ];
       } else {
@@ -166,6 +171,11 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Add Services",
             to: "/activities"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Reservation",
+            to: "/appointment"
           }
         ];
       }
