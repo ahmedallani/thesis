@@ -53,6 +53,7 @@ export default {
     this.socket = io.connect();
     this.socket.on("chat", data => {
       this.feedback = "";
+      console.log({ data });
       this.messages.push(data);
     });
     this.socket.on("typing", data => {
