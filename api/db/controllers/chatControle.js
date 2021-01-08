@@ -14,6 +14,7 @@ module.exports = {
     })
       .populate("from","username")
       .populate("to","username")
+      .sort({'_id': -1})
       .exec(callbacks);
   }
 };
