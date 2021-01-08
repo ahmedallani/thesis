@@ -34,9 +34,11 @@
             </v-row>
           </v-container>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+          <v-btn color="blue darken-1" text to="/map"> Add Place</v-btn>
           <v-btn color="blue darken-1" text @click="validate"> Save </v-btn>
         </v-card-actions>
       </v-card>
@@ -55,7 +57,9 @@
               <div>{{ activity.description }}</div>
               <div>{{ activity.price }}</div>
             </v-card-text>
+
             <v-spacer></v-spacer>
+
             <v-card-actions>
               <v-btn color="warning" text @click="editItem(activity)">
                 edit
