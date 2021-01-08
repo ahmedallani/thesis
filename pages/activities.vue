@@ -38,7 +38,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-          <v-btn color="blue darken-1" text to="/map"> Add Place</v-btn>
+          
           <v-btn color="blue darken-1" text @click="validate"> Save </v-btn>
         </v-card-actions>
       </v-card>
@@ -68,6 +68,8 @@
               <v-btn color="danger" text @click="deleteItem(activity)">
                 delete
               </v-btn>
+              <v-spacer/>
+              <v-btn color="blue darken-1" text :to="`/places/${activity._id}`"> Add Places</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
