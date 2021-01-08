@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 const chatControle = require("../db/controllers/chatControle.js");
-// let adminId = "5ff4e6d86ed18531d8b098ea";
+
 
 router.route("/").post(function(req, res) {
   let chat = {

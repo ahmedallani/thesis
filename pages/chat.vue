@@ -12,6 +12,9 @@
             </v-list-item>
           </v-list>
         </v-card>
+        <p v-if="feedback !== ''">
+          <em>{{ feedback }} is typing a message...</em>
+        </p>
         <v-form>
           <v-select
             label="Send to"
@@ -40,6 +43,7 @@
 import { validationMixin } from "vuelidate";
 import { required, maxLength, email } from "vuelidate/lib/validators";
 import { mapState, mapActions } from "vuex";
+import io from "socket.io-client";
 
 export default {
   mixins: [validationMixin],
@@ -49,11 +53,27 @@ export default {
   },
 
   data: () => ({
-    message: "",
     messages: [],
     users: [],
-    to: ""
+    message: "",
+    to: "",
+    socket: "",
+    feedback: ""
   }),
+  async mounted() {
+    this.socket = io.connect();
+    console.log("socket", this.socket);
+    await this.$axios.$put(`/api/users`, {
+      socket: this.socket.id
+    });
+    this.socket.on("update", async data => {
+      console.log({ data });
+      this.getMessages();
+    });
+    this.socket.on("typing", data => {
+      this.feedback = data;
+    });
+  },
   created() {
     this.initialize();
   },
@@ -68,12 +88,17 @@ export default {
     },
     async submit() {
       let rtn;
-      let chat = {
+      let chatObject = {
+        from: this.user._id,
         message: this.message,
         to: this.to
       };
-      rtn = await this.$axios.$post("/api/chats", chat);
-      this.getMessages();
+      rtn = await this.$axios.$post("/api/chats", chatObject);
+      this.getMessages()
+      let chat = this.socket.emit("update", {
+        from: this.user._id,
+        to: this.to
+      });
     },
     async getMessages() {
       if (this.to) {
@@ -81,6 +106,9 @@ export default {
         console.log({ messages });
         this.messages = messages;
       }
+    },
+    typing() {
+      this.socket.emit("typing", this.to);
     }
   }
 };

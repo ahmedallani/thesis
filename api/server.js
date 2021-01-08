@@ -1,3 +1,5 @@
+const { User } = require("./db/models/users");
+
 const port = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === "production";
 
@@ -21,9 +23,15 @@ io.on("connection", socket => {
   console.log("made socket connection", socket.id);
 
   // Handle chat event
-  socket.on("chat", function(data) {
-    // console.log(data);
-    io.sockets.emit("chat", data);
+  socket.on("update", async function(data) {
+    console.log("update", data);
+    let user = await User.findOne({ _id: data.to });
+    console.log(user)
+    // if (user.socket) {
+    //   // socket.broadcast.to(user.socket).emit("update", { from: data.from });
+    //   io.sockets.emit("update", {from: data.from});
+    // }
+    io.sockets.emit("update", {from: data.from});
   });
 
   // Handle typing event
