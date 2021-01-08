@@ -38,14 +38,15 @@
 export default {
   data: () => ({
     places: [],
-    customText: "",
+    customText: ""
   }),
   created() {
     this.initialize();
   },
   methods: {
     async initialize() {
-      const places = await this.$axios.$get("/api/place");
+      const places = await this.$axios.$get(`/api/place/${this.$route.params.id}`);
+
       this.places = places;
     },
     getLatLng({ lat, lng }) {
@@ -56,11 +57,12 @@ export default {
       let { lat, lng } = event.latlng;
       if (this.customText !== "") {
         let place = {
-          activity:"id",
+          activity: this.$route.params.id,
           lat,
           lng,
-          title: this.customText,
+          title: this.customText
         };
+        console.log(place);
         await this.$axios.$post("/api/place", place);
         await this.initialize();
       }
@@ -70,8 +72,8 @@ export default {
       console.log(index, place, this.places);
       await this.$axios.$delete(`/api/place/${place._id}`);
       await this.initialize();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
