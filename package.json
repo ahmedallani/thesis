@@ -2,6 +2,7 @@
   "name": "project",
   "version": "1.0.0",
   "private": true,
+  "mode": "spa",
   "scripts": {
     "server": "nodemon api/server",
     "debug": "ndb api/server.js",
@@ -34,6 +35,8 @@
     "passport-local": "^1.0.0",
     "socket.io": "^3.0.4",
     "socket.io-client": "^3.0.4",
+    "stripe-checkout": "^1.0.9",
+    "vue-stripe-checkout": "^3.5.14-beta.0",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

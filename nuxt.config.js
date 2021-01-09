@@ -4,6 +4,12 @@ module.exports = {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   serverMiddleware: ["~/api/index.js"],
   head: {
+    script: [
+      {
+        src: 'https://checkout.stripe.com/checkout.js', 
+        defer: true 
+      }
+    ],
     titleTemplate: "%s - project",
     title: "project",
     meta: [
@@ -43,7 +49,7 @@ module.exports = {
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
