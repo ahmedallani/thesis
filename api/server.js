@@ -24,10 +24,13 @@ io.on("connection", socket => {
 
   // Handle chat event
   socket.on("update", async function(data) {
+    debugger;
     console.log("update", data);
     let user = await User.findOne({ _id: data.to });
-    console.log(user)
-    io.sockets.emit("update", {from: data.from});
+    console.log(user, io.sockets.sockets);
+    if (user.socket !== undefined) {
+      socket.broadcast.to(user.socket).emit("update", { from: data.from });
+    }
   });
 
   // Handle typing event
