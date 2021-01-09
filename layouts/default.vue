@@ -123,39 +123,6 @@ export default {
             title: "Home",
             to: "/"
           },
-          // {
-          //   icon: "mdi mdi-account-circle",
-          //   title: "Login",
-          //   to: "/login"
-          // },
-          // {
-          //   icon: "mdi mdi-account-check",
-          //   title: "Signup",
-          //   to: "/register"
-          // },
-          {
-            icon: "mdi mdi-clipboard-text",
-            title: "Blog",
-            to: "/blog"
-          },
-          {
-            icon: "mdi mdi-clipboard-text",
-            title: "Add Services",
-            to: "/activities"
-          }
-        ];
-      } else {
-        return [
-          {
-            icon: "mdi-apps",
-            title: "Home",
-            to: "/"
-          },
-          // {
-          //   icon: "mdi mdi-account-circle",
-          //   title: "Logout",
-          //   to: "/logout"
-          // },
 
           {
             icon: "mdi mdi-clipboard-text",
@@ -166,6 +133,40 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Add Services",
             to: "/activities"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Reservation",
+            to: "/appointment"
+          }
+        ];
+      } else {
+        return [
+          {
+            icon: "mdi-apps",
+            title: "Home",
+            to: "/"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Blog",
+            to: "/blog"
+          },
+
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Chat",
+            to: "/chat"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Add Services",
+            to: "/activities"
+          },
+          {
+            icon: "mdi mdi-clipboard-text",
+            title: "Reservation",
+            to: "/appointment"
           }
         ];
       }

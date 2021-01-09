@@ -49,7 +49,7 @@ export default {
       this.places = places;
     },
     getLatLng({ lat, lng }) {
-      console.log([lat, lng]);
+
       return [lat, lng];
     },
     async addMarker(event) {
@@ -67,7 +67,6 @@ export default {
     },
     async removeMarker(index) {
       let place = this.places[index];
-      console.log(index, place, this.places);
       await this.$axios.$delete(`/api/place/${place._id}`);
       await this.initialize();
     },
