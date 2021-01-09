@@ -142,12 +142,12 @@ export default {
             icon: "mdi mdi-clipboard-text",
             title: "Add Services",
             to: "/activities"
-          },
-          {
-            icon: "mdi mdi-clipboard-text",
-            title: "Reservation",
-            to: "/appointment"
           }
+          // {
+          //   icon: "mdi mdi-clipboard-text",
+          //   title: "Reservation",
+          //   to: "/appointment"
+          // }
         ];
       } else {
         return [

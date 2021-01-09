@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center" mt-5>
-        <h1 class="text">Reservation</h1>
+        <h1 class="text">Reserve Now</h1>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
         <v-text-field

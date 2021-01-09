@@ -34,7 +34,7 @@
 
     <div>
       <br /><br />
-      <v-carousel cycle hide-delimiters>
+      <!-- <v-carousel cycle hide-delimiters>
         <v-carousel-item :src="require('../assets/slider4.jpg')">
           <v-row class="fill-height" align="center" justify="center">
             <div class="display-2 white--text pl-5 pr-5 hidden-sm-only">
@@ -91,12 +91,17 @@
             <br />
           </v-row>
         </v-carousel-item>
-      </v-carousel>
+      </v-carousel> -->
+      <appointment />
     </div>
   </div>
 </template>
 <script>
+import appointment from "@/components/appointment";
 export default {
+  components: {
+    appointment
+  },
   data: () => ({
     places: [],
     customText: ""
