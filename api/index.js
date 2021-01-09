@@ -52,14 +52,20 @@ routers.use(
   })
 );
 
-
-
 routers.use(passport.initialize());
 routers.use(passport.session());
 routers.get("/user", (req, res) => {
   if (req.isAuthenticated()) {
-    console.log({ username: req.user.username, type: req.user.type })
-    return res.send({ username: req.user.username, type: req.user.type });
+    console.log({
+      username: req.user.username,
+      _id: req.user._id,
+      type: req.user.type
+    });
+    return res.send({
+      username: req.user.username,
+      _id: req.user._id,
+      type: req.user.type
+    });
   } else {
     return res.send({ username: false });
   }
@@ -145,6 +151,11 @@ routers.get("/images/:img", (req, res) => {
 var activity = require("./routes/activity.js");
 routers.use("/activity", activity);
 
+const chats = require("./routes/chats.js");
+routers.use("/chats", chats);
+
+var users = require("./routes/users.js");
+routers.use("/users", users);
 // View engine setup
 
 app.use("/api", routers);
