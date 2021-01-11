@@ -2,38 +2,47 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="10">
-        <v-card height="200px" class="scroll">
+        <v-card max-width="500" height="400px" class="scroll">
+          <v-toolbar dark color="primary darken-1">
+            <v-toolbar-title class="name">Chat</v-toolbar-title>
+          </v-toolbar>
           <v-list id="messages" dense v-for="(msg, i) in messages" :key="i">
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>{{ msg.from.username }}</v-list-item-title>
-                <v-list-item-subtitle>{{ msg.message }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
+            <div>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="name">{{
+                    msg.from.username
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ msg.message }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </div>
           </v-list>
         </v-card>
         <p v-if="feedback !== ''">
           <em>{{ feedback }} is typing a message...</em>
         </p>
-        <v-form>
-          <v-select
-            label="Send to"
-            v-model="to"
-            :items="users"
-            item-value="_id"
-            item-text="username"
-            @change="getMessages"
-          ></v-select>
-          <v-text-field
-            v-model="message"
-            label="Send Your Message Here"
-            required
-          ></v-text-field>
-          <v-btn color="success" @click="submit">
-            Send
-            <v-icon dark right> mdi-send </v-icon>
-          </v-btn>
-        </v-form>
+        <div class="test">
+          <v-form>
+            <v-select
+              label="Send to"
+              v-model="to"
+              :items="users"
+              item-value="_id"
+              item-text="username"
+              @change="getMessages"
+            ></v-select>
+            <v-text-field
+              v-model="message"
+              label="Send Your Message Here"
+              required
+            ></v-text-field>
+            <v-btn color="blue" @click="submit">
+              Send
+              <v-icon dark right> mdi-send </v-icon>
+            </v-btn>
+          </v-form>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -61,19 +70,19 @@ export default {
     feedback: ""
   }),
   async mounted() {
-     this.socket = io.connect();
-    this.socket.on("connect",async () => {
+    this.socket = io.connect();
+    this.socket.on("connect", async () => {
       console.log("Connection");
       console.log("socket", this.socket.id);
       let user = await this.$axios.$put(`/api/users`, {
-      socket: this.socket.id,
+        socket: this.socket.id
+      });
     });
-    });
-    this.socket.on("update", async (data) => {
+    this.socket.on("update", async data => {
       console.log({ data });
       this.getMessages();
     });
-    this.socket.on("typing", (data) => {
+    this.socket.on("typing", data => {
       this.feedback = data;
     });
   },
@@ -102,7 +111,7 @@ export default {
         from: this.user._id,
         to: this.to
       });
-        this.message = "";
+      this.message = "";
     },
     async getMessages() {
       if (this.to) {
@@ -118,7 +127,19 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
 .scroll {
+  left: 250px;
   overflow-y: auto;
+}
+
+.name {
+  font-family: "Anton", sans-serif;
+}
+.test {
+  position: relative;
+  width: 340px;
+  left: 250px;
 }
 </style>
