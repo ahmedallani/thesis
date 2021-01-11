@@ -38,7 +38,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-          
+
           <v-btn color="blue darken-1" text @click="validate"> Save </v-btn>
         </v-card-actions>
       </v-card>
@@ -68,8 +68,10 @@
               <v-btn color="danger" text @click="deleteItem(activity)">
                 delete
               </v-btn>
-              <v-spacer/>
-              <v-btn color="blue darken-1" text :to="`/places/${activity._id}`"> Add Places</v-btn>
+              <v-spacer />
+              <v-btn color="blue darken-1" text :to="`/places/${activity._id}`">
+                Add Places</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -128,7 +130,12 @@ export default {
     async validate() {
       const fb = new FormData();
 
-      fb.append("image", this.selectedFile, this.selectedFile.name);
+      fb.append(
+        "image",
+        this.selectedFile,
+        this.selectedFile.name,
+        this.editedItem.image
+      );
 
       fb.append("description", this.editedItem.description);
       fb.append("price", this.editedItem.price);

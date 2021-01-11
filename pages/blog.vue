@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="header">
+      <h2>THE ESCAPER'S BLOG</h2>
+    </div>
+
     <v-dialog v-model="dialog" max-width="500px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
@@ -8,6 +12,7 @@
       </template>
       <v-card>
         <span class="headline">{{ formTitle }}</span>
+        <p>{{ $moment() }}</p>
         <v-card-text>
           <v-container>
             <v-row>
@@ -42,32 +47,28 @@
       </v-card>
     </v-dialog>
     <v-container>
-      <v-row align-content="stretch">
-        <v-col v-for="(blog, index) in blogs" :key="index">
-          <v-card style="height:100%" class="mx-auto" max-width="400">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              :src="`/api/images/${blog.image}`"
-            >
-            </v-img>
-            <v-card-text class="text--primary">
-              <div>{{ blog.body }}</div>
-              <div>{{ blog.title }}</div>
-            </v-card-text>
-            <v-spacer></v-spacer>
-            <v-card-actions>
-              <v-btn color="warning" text @click="editItem(blog)">
-                edit
-              </v-btn>
+      <div v-for="(blog, index) in blogs" :key="index" class="row">
+        <div class="leftcolumn">
+          <div class="card">
+            <h1>{{ blog.title }}</h1>
 
-              <v-btn color="danger" text @click="deleteItem(blog)">
-                delete
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+            <div class="div">
+              <v-img class="img" :src="`/api/images/${blog.image}`"> </v-img>
+            </div>
+
+            <div class="div">
+              <p>{{ blog.body }}</p>
+            </div>
+            <v-btn color="warning" text @click="editItem(blog)">
+              edit
+            </v-btn>
+
+            <v-btn color="danger" text @click="deleteItem(blog)">
+              delete
+            </v-btn>
+          </div>
+        </div>
+      </div>
     </v-container>
   </div>
 </template>
@@ -79,6 +80,7 @@ export default {
     dialogDelete: false,
     blogs: [],
     selectedFile: null,
+    date: new Date().toLocaleString(),
     valid: true,
     editedIndex: -1,
     editedItem: {
@@ -145,6 +147,7 @@ export default {
               );
             }
           })
+
           .then(res => {
             this.initialize();
           })
@@ -177,3 +180,73 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: black;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+
+/* Add a card effect for articles */
+.card {
+  background-color: black;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn,
+  .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+h2 {
+  font-family: "Anton", sans-serif;
+}
+.img {
+  height: 300px;
+  width: 150%;
+}
+.div {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+</style>

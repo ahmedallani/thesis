@@ -26,7 +26,8 @@ module.exports = {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    "@nuxtjs/vuetify"
+    "@nuxtjs/vuetify",
+    "@nuxtjs/moment"
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -39,7 +40,7 @@ module.exports = {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
-  mdbvue:{},
+  mdbvue: {},
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
